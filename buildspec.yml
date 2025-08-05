@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo "Using Docker to run Node.js 20"
+      - docker pull public.ecr.aws/docker/library/node:20-alpine
+  build:
+    commands:
+      - docker run --rm -v $PWD:/app -w /app public.ecr.aws/docker/library/node:20-alpine sh -c "npm ci && npm run build"
+      - test -d dist && echo "dist directory found" || echo "dist directory not found"
+  post_build:
+    commands:
+      - echo "Verifying appspec.yml exists"
+      - ls -la appspec.yml
+      - echo "Build completed - files ready for CodeDeploy"
+      - export AWS_REGION=us-east-1
+      - aws s3 sync dist/ s3://revitaldentaltempletx-website --delete 
+      - aws cloudfront create-invalidation --distribution-id E1K8M61U3FDC27 --paths "/*"
+
+artifacts:
+  files:
+    - '**/*'
+  name: BuildArtifacts
