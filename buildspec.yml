@@ -12,7 +12,6 @@ phases:
   post_build:
     commands:
       - echo "Verifying appspec.yml exists"
-      - ls -la appspec.yml
       - echo "Build completed - files ready for CodeDeploy"
       - export AWS_REGION=us-east-1
       - aws s3 sync dist/ s3://revitaldentaltempletx-website --delete 
