@@ -7,8 +7,8 @@ export const clinicInfo = {
     zip: "76502",
     full: "4311 S 31st Ste 145, Temple, TX 76502"
   },
-  phone: "+17379103739",
-  displayPhone: "(737) 910-3739",
+  phone: "+12546778640",
+  displayPhone: "(254) 677-8640",
   email: "revitaldental24@gmail.com",
   mapLink: "https://www.google.com/maps/place/Revital+Dental/@31.0575554,-97.3734765,15z/data=!4m6!3m5!1s0x86456b77cbcefa79:0xcf1db0a8e3bdced7!8m2!3d31.0575554!4d-97.3734765!16s%2Fg%2F11q598fxmn!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MDcyOS4wIKXMDSoASAFQAw%3D%3D",
   coordinates: {
