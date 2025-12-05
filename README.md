@@ -76,7 +76,7 @@ A modern, responsive dental practice website built with Astro, TypeScript, and T
 
 ```bash
 git clone <repository-url>
-cd lilac-dental-website
+cd revital-dental-website
 ```
 
 ### 2. Install Dependencies
