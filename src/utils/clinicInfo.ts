@@ -29,7 +29,7 @@ export const clinicInfo = {
   social: {
     facebook: "https://www.facebook.com/profile.php?id=100083067285666",
     twitter: "https://x.com/revitaldentaltx",
-    yelp: "https://yelp.com"
+    yelp: "https://www.yelp.com/biz/revital-dental-temple"
   },
   booking: {
     url: "https://book.modento.io/revital-dental/patient-details"
