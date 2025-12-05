@@ -1,0 +1,158 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Patient Education', href: '/patient-education' },
+  { label: 'Gum Disease', href: '/patient-education/gum-disease' },
+];
+---
+
+<Layout 
+  title="Understanding Gum Disease" 
+  description="Learn about the causes, symptoms, and treatment of gum disease from the dental experts at Revital Dental in Temple, TX."
+>
+  <Hero
+    title="Understanding Gum Disease"
+    subtitle="Prevention, detection, and treatment of periodontal disease"
+    images={["/images/hero/dental-2.jpg"]}
+    height="md"
+  />
+  
+  <Breadcrumbs items={breadcrumbItems} />
+  
+  <div class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <!-- Introduction -->
+      <section class="mb-16 max-w-3xl mx-auto" data-aos="fade-up">
+        <h2 class="text-3xl font-bold font-heading text-gray-800 mb-6">What is Gum Disease?</h2>
+        <p class="text-lg text-gray-600 mb-6">
+          Gum disease, also known as periodontal disease, is an infection of the tissues that hold your teeth 
+          in place. It's typically caused by poor brushing and flossing habits that allow plaque—a sticky film 
+          of bacteria—to build up on the teeth and harden.
+        </p>
+      </section>
+
+      <!-- Stages -->
+      <section class="mb-16 max-w-3xl mx-auto" data-aos="fade-up">
+        <h2 class="text-2xl font-bold font-heading text-gray-800 mb-6">Stages of Gum Disease</h2>
+        
+        <div class="space-y-8">
+          <div class="bg-gray-50 p-6 rounded-lg">
+            <h3 class="text-xl font-bold text-gray-800 mb-3">Gingivitis</h3>
+            <p class="text-gray-600 mb-4">
+              The earliest stage of gum disease, caused by plaque buildup at the gumline. Signs include:
+            </p>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>Red, swollen gums</li>
+              <li>Bleeding while brushing or flossing</li>
+              <li>Bad breath</li>
+              <li>Gum tenderness</li>
+            </ul>
+          </div>
+
+          <div class="bg-gray-50 p-6 rounded-lg">
+            <h3 class="text-xl font-bold text-gray-800 mb-3">Periodontitis</h3>
+            <p class="text-gray-600 mb-4">
+              If gingivitis is left untreated, it can advance to periodontitis. Symptoms include:
+            </p>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>Receding gums</li>
+              <li>Loose or shifting teeth</li>
+              <li>Painful chewing</li>
+              <li>New spaces between teeth</li>
+              <li>Persistent bad breath</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Risk Factors -->
+      <section class="mb-16 max-w-3xl mx-auto" data-aos="fade-up">
+        <h2 class="text-2xl font-bold font-heading text-gray-800 mb-6">Risk Factors</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-primary-50 p-6 rounded-lg">
+            <h3 class="text-xl font-bold text-gray-800 mb-3">Controllable Factors</h3>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>Poor oral hygiene</li>
+              <li>Smoking or tobacco use</li>
+              <li>Uncontrolled diabetes</li>
+              <li>Poor nutrition</li>
+              <li>Stress</li>
+            </ul>
+          </div>
+
+          <div class="bg-primary-50 p-6 rounded-lg">
+            <h3 class="text-xl font-bold text-gray-800 mb-3">Other Risk Factors</h3>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>Age</li>
+              <li>Genetics</li>
+              <li>Hormonal changes</li>
+              <li>Certain medications</li>
+              <li>Other medical conditions</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prevention -->
+      <section class="mb-16 max-w-3xl mx-auto" data-aos="fade-up">
+        <h2 class="text-2xl font-bold font-heading text-gray-800 mb-6">Prevention and Treatment</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <h3 class="text-xl font-bold text-gray-800 mb-3">Prevention Tips</h3>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>Brush twice daily with fluoride toothpaste</li>
+              <li>Floss daily to remove plaque between teeth</li>
+              <li>Use an antiseptic mouthwash</li>
+              <li>Schedule regular dental checkups and cleanings</li>
+              <li>Maintain a healthy diet</li>
+              <li>Quit smoking or using tobacco products</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold text-gray-800 mb-3">Treatment Options</h3>
+            <p class="text-gray-600 mb-4">
+              Treatment depends on the stage of gum disease and may include:
+            </p>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>Professional dental cleaning</li>
+              <li>Scaling and root planing (deep cleaning)</li>
+              <li>Antibiotic therapy</li>
+              <li>Surgical treatments for advanced cases</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Call to Action -->
+      <section class="max-w-3xl mx-auto" data-aos="fade-up">
+        <div class="bg-primary-50 p-8 rounded-lg text-center">
+          <h2 class="text-2xl font-bold font-heading text-gray-800 mb-4">Concerned About Gum Disease?</h2>
+          <p class="text-gray-600 mb-6">
+            Early detection and treatment are crucial for preventing gum disease progression. Schedule an 
+            appointment with our team for a comprehensive evaluation.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a 
+              href="/book-appointment" 
+              class="inline-flex items-center px-6 py-3 bg-primary-600 text-white font-medium rounded-md hover:bg-primary-700 transition-colors duration-200"
+            >
+              Book Appointment
+            </a>
+            <a 
+              href="tel:+17376008776" 
+              class="inline-flex items-center px-6 py-3 border border-primary-600 text-primary-600 font-medium rounded-md hover:bg-primary-50 transition-colors duration-200"
+            >
+              Call Us
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</Layout>

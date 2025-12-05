@@ -1,0 +1,32 @@
+{
+  "name": "revital-dental",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/react": "^3.0.10",
+    "@astrojs/sitemap": "^3.1.1",
+    "@astrojs/tailwind": "^5.1.0",
+    "@fontsource/montserrat": "^5.0.16",
+    "@fontsource/open-sans": "^5.0.18",
+    "aos": "^2.3.4",
+    "astro": "^5.2.5",
+    "react": "^18.2.0",
+    "react-compare-image": "^3.4.0",
+    "react-dom": "^18.2.0",
+    "sharp": "^0.33.2",
+    "swiper": "^11.0.5",
+    "tailwindcss": "^3.4.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/typography": "^0.5.19"
+  }
+}

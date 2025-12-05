@@ -1,0 +1,196 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Button from '../../components/Button.astro';
+import { clinicInfo } from '../../utils/clinicInfo';
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Services', href: '/services' },
+  { label: 'Dentures', href: '/services/dentures' },
+];
+
+// --- SEO: DENTURE/PROSTHODONTIC SCHEMA ---
+const dentureSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Custom Dentures & Partials",
+  "procedureType": "RestorativeProcedure",
+  "bodyLocation": "Mouth",
+  "description": "Custom-fitted complete and partial dentures to restore smile function and aesthetics.",
+  "provider": {
+    "@type": "Dentist",
+    "name": clinicInfo.name,
+    "telephone": clinicInfo.phone,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": clinicInfo.address.line1,
+      "addressLocality": clinicInfo.address.city,
+      "addressRegion": clinicInfo.address.state,
+      "postalCode": clinicInfo.address.zip,
+      "addressCountry": "US"
+    }
+  },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock",
+    "url": "https://revitaldentaltempletx.com/services/dentures"
+  }
+};
+---
+
+<Layout
+  title="Custom Dentures in Temple, TX (76502) | Revital Dental"
+  description="Restore your smile and confidence with custom full and partial dentures at Revital Dental in Temple. Comfortable, natural-looking solutions."
+  serviceSchema={dentureSchema}
+>
+  <!-- CLEAN, SLIM HEADER -->
+  <div class="bg-primary-900 text-white pt-32 pb-16 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white" />
+      </svg>
+    </div>
+    
+    <div class="container mx-auto px-4 text-center relative z-10">
+      <h1 class="text-4xl md:text-5xl font-bold font-heading mb-4">Custom Dentures</h1>
+      <p class="text-primary-200 text-lg max-w-2xl mx-auto">
+        Restore your smile's function and beauty with comfortable, modern dentures.
+      </p>
+    </div>
+  </div>
+
+  <div class="bg-gray-50 border-b border-gray-200">
+    <div class="container mx-auto px-4 py-3">
+      <nav class="flex text-sm text-gray-500" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-2">
+          <li><a href="/" class="hover:text-primary-600">Home</a></li>
+          <li><span class="text-gray-400">/</span></li>
+          <li><a href="/services" class="hover:text-primary-600">Services</a></li>
+          <li><span class="text-gray-400">/</span></li>
+          <li class="text-gray-900 font-medium" aria-current="page">Dentures</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <div class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <!-- Introduction -->
+      <section class="mb-16 max-w-3xl mx-auto text-center" data-aos="fade-up">
+        <h2 class="text-3xl font-bold font-heading text-gray-800 mb-6">Smile with Confidence in Temple</h2>
+        <p class="text-lg text-gray-600 mb-6">
+          Missing teeth can make eating difficult, affect your speech, and lower your self-esteem. At <strong>{clinicInfo.name}</strong> in Temple (76502), we create high-quality, custom-fitted dentures that look natural and fit comfortably.
+        </p>
+        <p class="text-lg text-gray-600">
+          Whether you need to replace a few missing teeth or a full arch, Dr. K and Dr. Gantayat use modern materials to craft dentures that restore your facial structure and let you enjoy your favorite foods again.
+        </p>
+      </section>
+
+      <!-- Types of Dentures -->
+      <section class="mb-16 max-w-4xl mx-auto" data-aos="fade-up">
+        <h2 class="text-2xl font-bold font-heading text-gray-800 mb-8 text-center">Our Denture Solutions</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Partial -->
+          <div class="bg-gray-50 rounded-xl p-6 hover:shadow-md transition-shadow border border-gray-100">
+            <h3 class="text-xl font-bold text-primary-700 mb-3">Partial Dentures</h3>
+            <p class="text-gray-600 text-sm mb-4">
+              Ideal if you still have healthy natural teeth. Partials fill in the gaps to prevent your remaining teeth from shifting.
+            </p>
+            <ul class="text-sm text-gray-500 list-disc list-inside">
+              <li>Removable clasp design</li>
+              <li>Preserves natural teeth</li>
+              <li>Cost-effective</li>
+            </ul>
+          </div>
+
+          <!-- Full -->
+          <div class="bg-gray-50 rounded-xl p-6 hover:shadow-md transition-shadow border border-gray-100">
+            <h3 class="text-xl font-bold text-primary-700 mb-3">Full Dentures</h3>
+            <p class="text-gray-600 text-sm mb-4">
+              A complete replacement for an upper or lower arch. Modern full dentures are lighter and more realistic than ever before.
+            </p>
+            <ul class="text-sm text-gray-500 list-disc list-inside">
+              <li>Custom gum shading</li>
+              <li>Natural tooth shapes</li>
+              <li>Restores facial profile</li>
+            </ul>
+          </div>
+
+          <!-- Implant Supported -->
+          <div class="bg-primary-50 rounded-xl p-6 hover:shadow-md transition-shadow border border-primary-100">
+            <h3 class="text-xl font-bold text-primary-700 mb-3">Implant-Supported</h3>
+            <p class="text-gray-600 text-sm mb-4">
+              The most stable option. Dentures snap onto dental implants for a secure fit that never slips while talking or eating.
+            </p>
+            <ul class="text-sm text-gray-500 list-disc list-inside">
+              <li>No adhesive needed</li>
+              <li>Superior biting power</li>
+              <li>Prevents bone loss</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- The Process -->
+      <section class="mb-16 max-w-3xl mx-auto" data-aos="fade-up">
+        <h2 class="text-2xl font-bold font-heading text-gray-800 mb-6">Getting Your New Smile</h2>
+
+        <div class="space-y-6">
+          <div class="bg-white shadow-sm border border-gray-100 rounded-lg p-6 flex gap-4">
+            <div class="w-8 h-8 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
+            <div>
+              <h3 class="text-lg font-bold text-gray-800 mb-2">Impressions & Measurements</h3>
+              <p class="text-gray-600 text-sm">We take precise molds of your mouth to ensure an accurate fit that minimizes sore spots.</p>
+            </div>
+          </div>
+
+          <div class="bg-white shadow-sm border border-gray-100 rounded-lg p-6 flex gap-4">
+            <div class="w-8 h-8 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
+            <div>
+              <h3 class="text-lg font-bold text-gray-800 mb-2">Wax Try-In</h3>
+              <p class="text-gray-600 text-sm">You try a "mock-up" of the dentures. We adjust the shape, color, and fit until you are happy with how they look.</p>
+            </div>
+          </div>
+
+          <div class="bg-white shadow-sm border border-gray-100 rounded-lg p-6 flex gap-4">
+            <div class="w-8 h-8 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center font-bold flex-shrink-0">3</div>
+            <div>
+              <h3 class="text-lg font-bold text-gray-800 mb-2">Final Fitting</h3>
+              <p class="text-gray-600 text-sm">Your final custom dentures are ready. We make minor adjustments to ensure maximum comfort so you can leave smiling.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Call to Action -->
+      <section class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+        <div class="bg-primary-50 p-8 rounded-lg">
+          <h2 class="text-2xl font-bold font-heading text-gray-800 mb-4">Eat & Smile Comfortably Again</h2>
+          <p class="text-gray-600 mb-6">
+            Schedule a consultation at our Temple office to discuss your denture options.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <Button
+              href={clinicInfo.booking.url}
+              text="Book Consultation"
+              variant="primary"
+              size="lg"
+              target="_blank"
+              rel="noopener noreferrer"
+            />
+            <Button
+              href={`tel:${clinicInfo.phone}`}
+              text="Call Us"
+              variant="outline"
+              size="lg"
+            />
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</Layout>

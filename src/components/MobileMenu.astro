@@ -1,0 +1,114 @@
+---
+import Button from './Button.astro';
+import { clinicInfo } from '../utils/clinicInfo';
+import type { Services } from '../utils/services';
+
+export interface Props {
+  services: Services;
+}
+
+const { services } = Astro.props;
+---
+
+<div id="mobile-menu" class="fixed inset-0 bg-white z-50 pt-20 px-4 lg:hidden hidden overflow-y-auto">
+  <div class="relative">
+    <button id="close-menu" class="absolute top-[-60px] right-4 text-gray-700 focus:outline-none">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+  
+  <nav class="flex flex-col gap-4">
+    <a href="/" class="mobile-nav-link">Home</a>
+    <a href="/about" class="mobile-nav-link">About</a>
+    
+    <!-- Services Dropdown -->
+    <div class="mobile-accordion">
+      <button class="mobile-nav-link w-full text-left flex items-center justify-between">
+        Services <span class="transform transition-transform duration-200">▼</span>
+      </button>
+      <div class="mobile-submenu hidden pl-4 py-2">
+        <div class="space-y-8">
+          {Object.entries(services).map(([key, category]) => (
+            <div>
+              <h3 class="font-bold text-gray-800 mb-2">{category.title}</h3>
+              <p class="text-sm text-gray-600 mb-4">{category.description}</p>
+              <div class="space-y-4">
+                {category.items.map(service => (
+                  <div>
+                    <a 
+                      href={service.href} 
+                      class="group block"
+                      aria-label={`Learn more about ${service.name}`}
+                    >
+                      <div class="flex items-center gap-2">
+                        <span class="text-lg">{service.icon}</span>
+                        <span class="font-medium text-gray-700 group-hover:text-primary-600 transition-colors duration-200">
+                          {service.name}
+                        </span>
+                      </div>
+                      <p class="text-sm text-gray-500 mt-1 group-hover:text-gray-700 transition-colors duration-200">
+                        {service.description}
+                      </p>
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+
+          <div>
+            <a 
+              href="/services" 
+              class="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium"
+            >
+              View All Services 
+              <span class="ml-2">→</span>
+            </a>
+            <p class="text-sm text-gray-500 mt-2">
+              Explore all the ways {clinicInfo.name} can support your oral health — from cleanings to complete smile makeovers.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <a href="/smile-gallery" class="mobile-nav-link">Smile Gallery</a>
+    <a href="/patient-information" class="mobile-nav-link">Patient Information</a>
+    <a href="/blog" class="mobile-nav-link">Blog</a>
+    <a href="/financing" class="mobile-nav-link">Financing</a>
+    <a href="/reviews" class="mobile-nav-link">Reviews</a>
+    <a href="/contact" class="mobile-nav-link">Contact</a>
+  </nav>
+</div>
+
+<style>
+  .mobile-nav-link {
+    @apply text-lg font-medium text-gray-800 py-3 border-b border-gray-100;
+  }
+  
+  .mobile-submenu-link {
+    @apply text-base text-gray-700 py-2 hover:text-primary-600 transition-colors duration-200;
+  }
+</style>
+
+<script>
+  const closeMenu = document.getElementById('close-menu');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const accordions = document.querySelectorAll('.mobile-accordion button');
+  
+  closeMenu.addEventListener('click', () => {
+    mobileMenu.classList.add('hidden');
+  });
+  
+  accordions.forEach(accordion => {
+    accordion.addEventListener('click', () => {
+      const arrow = accordion.querySelector('span');
+      const submenu = accordion.nextElementSibling;
+      
+      arrow.classList.toggle('rotate-180');
+      submenu.classList.toggle('hidden');
+    });
+  });
+</script>

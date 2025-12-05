@@ -1,0 +1,112 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import Button from '../../components/Button.astro';
+import { clinicInfo } from '../../utils/clinicInfo';
+import services from '../../utils/services';
+
+// Note: We removed the 'Hero' import as we are replacing it with the slim header
+---
+
+<Layout
+  title="Dental Services in Temple, TX (76502) | Revital Dental"
+  description="Explore our comprehensive dental services at Revital Dental in Temple. From emergency care and implants to Invisalign and checkups, we cover all your oral health needs."
+>
+  <!-- CLEAN, SLIM HEADER (No Stock Photo) -->
+  <div class="bg-primary-900 text-white pt-32 pb-16 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white" />
+      </svg>
+    </div>
+    
+    <div class="container mx-auto px-4 text-center relative z-10">
+      <h1 class="text-4xl md:text-5xl font-bold font-heading mb-4">Our Dental Services</h1>
+      <p class="text-primary-200 text-lg max-w-2xl mx-auto">
+        Comprehensive care for your entire family in Temple.
+      </p>
+    </div>
+  </div>
+
+  <!-- Breadcrumbs -->
+  <div class="bg-gray-50 border-b border-gray-200">
+    <div class="container mx-auto px-4 py-3">
+      <nav class="flex text-sm text-gray-500" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-2">
+          <li><a href="/" class="hover:text-primary-600">Home</a></li>
+          <li><span class="text-gray-400">/</span></li>
+          <li class="text-gray-900 font-medium" aria-current="page">Services</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <div class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      
+      <!-- Introduction -->
+      <section class="mb-16 max-w-3xl mx-auto text-center" data-aos="fade-up">
+        <h2 class="text-3xl md:text-4xl font-bold font-heading text-gray-800 mb-6">
+          Expert Dental Care in Temple
+        </h2>
+        <p class="text-lg text-gray-600">
+          At {clinicInfo.name}, we offer a comprehensive range of dental services to meet all your oral
+          health needs. From routine cleanings to advanced restorative procedures, our experienced team
+          is dedicated to providing exceptional care in a comfortable environment.
+        </p>
+      </section>
+
+      <!-- Service Categories -->
+      {Object.entries(services).map(([key, category]) => (
+        <section class="mb-16" data-aos="fade-up">
+          <div class="max-w-3xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-bold font-heading text-gray-800 mb-4 border-b border-gray-100 pb-2">
+              {category.title}
+            </h2>
+            <p class="text-lg text-gray-600 mb-8">{category.description}</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {category.items.map(service => (
+              <ServiceCard
+                title={service.name}
+                description={service.description}
+                icon={service.icon}
+                link={service.href}
+              />
+            ))}
+          </div>
+        </section>
+      ))}
+
+      <!-- CTA Section -->
+      <section class="max-w-3xl mx-auto text-center mt-16" data-aos="fade-up">
+        <div class="bg-primary-50 p-8 rounded-2xl border border-primary-100">
+          <h2 class="text-2xl font-bold font-heading text-gray-800 mb-4">
+            Ready to Schedule Your Visit?
+          </h2>
+          <p class="text-gray-600 mb-8">
+            Contact us today to schedule an appointment or learn more about our services.
+            Our team is here to help you achieve and maintain optimal oral health.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <Button
+              href={clinicInfo.booking.url}
+              text="Book Appointment"
+              variant="primary"
+              size="lg"
+              target="_blank"
+              rel="noopener noreferrer"
+            />
+            <Button
+              href={`tel:${clinicInfo.phone}`}
+              text="Call Us"
+              variant="outline"
+              size="lg"
+            />
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,147 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { blogPosts } from '../../utils/blogPosts';
+import type { BlogPost } from '../../utils/blogPosts';
+import { Image } from 'astro:assets';
+import { clinicInfo } from '../../utils/clinicInfo';
+
+const pageTitle = "Revital Dental Blog";
+const metaDescription = `Stay informed with the latest dental health tips, treatment guides, and oral care insights from the professionals at ${clinicInfo.name} in Temple, TX.`;
+const pageUrl = new URL(Astro.url.pathname, Astro.site || Astro.url.origin).toString();
+
+// UPDATED CATEGORIES: Removed "Orthodontics", added "Dental Veneers"
+const categories = ["All", "Preventive", "Invisalign", "Dental Veneers", "Cosmetic"];
+---
+
+<Layout
+  title={`${pageTitle} | ${clinicInfo.name}`}
+  description={metaDescription}
+  canonicalURL={pageUrl}
+>
+  <!-- CLEAN HEADER SECTION -->
+  <section class="pt-32 pb-12 bg-white">
+    <div class="container mx-auto px-4 text-center">
+      
+      <nav class="text-gray-500 text-sm mb-4 uppercase tracking-widest font-medium">
+        <a href="/" class="hover:text-primary-600 transition-colors">Home</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-900">Blog</span>
+      </nav>
+
+      <h1 class="text-4xl md:text-5xl font-serif text-gray-900 mb-8">
+        Latest Resources From Our Blog
+      </h1>
+
+      <!-- CLICKABLE CATEGORY FILTER LINKS -->
+      <div class="flex flex-wrap justify-center gap-6 md:gap-10 text-sm font-medium text-gray-500 uppercase tracking-wide" id="category-filters">
+        {categories.map((cat, index) => (
+          <button 
+            data-category={cat}
+            class={`category-btn pb-1 border-b-2 transition-colors duration-200 ${index === 0 ? 'text-gray-900 border-gray-900 active-cat' : 'border-transparent hover:text-gray-900 hover:border-gray-300'}`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG GRID SECTION -->
+  <section class="pb-24 bg-white">
+    <div class="container mx-auto px-4 max-w-6xl">
+      {blogPosts.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16" id="blog-grid">
+          {blogPosts.map((post: BlogPost) => (
+            <article 
+              class="blog-post-item flex flex-col items-center text-center group" 
+              data-category={post.category} 
+              data-aos="fade-up"
+            >
+              
+              <a href={`/blog/${post.id}`} class="block w-full overflow-hidden rounded-lg mb-6 aspect-[3/2]">
+                {post.image ? (
+                  typeof post.image === 'object' && 'src' in post.image ? (
+                    <Image
+                      // @ts-ignore
+                      src={post.image}
+                      alt={post.title}
+                      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      width={800}
+                      height={533}
+                    />
+                  ) : (
+                    <img
+                      src={post.image as string}
+                      alt={post.title}
+                      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  )
+                ) : (
+                  // Placeholder just in case, though we fixed data to ensure images exist
+                  <div class="w-full h-full bg-gray-100 flex items-center justify-center">
+                    <svg class="w-12 h-12 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                  </div>
+                )}
+              </a>
+
+              <div class="max-w-md px-4">
+                <div class="text-xs text-primary-600 font-bold uppercase tracking-wider mb-2">
+                  {post.category}
+                </div>
+                <h2 class="text-2xl font-serif text-gray-800 mb-4 leading-tight">
+                  <a href={`/blog/${post.id}`} class="hover:text-primary-600 transition-colors">
+                    {post.title}
+                  </a>
+                </h2>
+                <p class="text-gray-500 text-sm leading-relaxed mb-4">
+                  {post.excerpt}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-20">
+          <p class="text-gray-500 text-lg">No articles found.</p>
+        </div>
+      )}
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Simple Client-Side Filtering Script
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.category-btn');
+    const posts = document.querySelectorAll('.blog-post-item');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // 1. Remove active class from all buttons
+        buttons.forEach(b => {
+          b.classList.remove('text-gray-900', 'border-gray-900', 'active-cat');
+          b.classList.add('border-transparent');
+        });
+
+        // 2. Add active class to clicked button
+        btn.classList.remove('border-transparent');
+        btn.classList.add('text-gray-900', 'border-gray-900', 'active-cat');
+
+        // 3. Filter Posts
+        const filter = (btn as HTMLElement).dataset.category;
+        
+        posts.forEach(post => {
+          const postCat = (post as HTMLElement).dataset.category;
+          
+          if (filter === 'All' || filter === postCat) {
+            (post as HTMLElement).style.display = 'flex';
+            // Re-trigger AOS animation if needed, or just show
+            (post as HTMLElement).classList.remove('hidden');
+          } else {
+            (post as HTMLElement).style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>

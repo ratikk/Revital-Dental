@@ -1,0 +1,209 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Button from '../components/Button.astro';
+import { clinicInfo } from '../utils/clinicInfo';
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Financing', href: '/financing' },
+];
+
+const insuranceList = [
+  "Delta Dental",
+  "MetLife",
+  "Cigna",
+  "Aetna",
+  "Blue Cross Blue Shield",
+  "Guardian",
+  "United Healthcare",
+  "Humana",
+  "Principal",
+  "Ameritas",
+  "Careington",
+  "DentaQuest (PPO)"
+];
+---
+
+<Layout
+  title="Dental Financing & Insurance in Temple, TX | Affordable Dentist 76502"
+  description="Affordable dental care in Temple. Revital Dental accepts most insurance (Delta, Cigna, MetLife) and offers flexible payment plans via CareCredit and Cherry."
+>
+  <!-- CLEAN, TEXT-BASED HEADER (No Stock Photo) -->
+  <div class="bg-primary-900 text-white pt-32 pb-16 relative overflow-hidden">
+    <!-- Subtle Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+      <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white" />
+      </svg>
+    </div>
+    
+    <div class="container mx-auto px-4 text-center relative z-10">
+      <h1 class="text-4xl md:text-5xl font-bold font-heading mb-4">Financial Options</h1>
+      <p class="text-primary-200 text-lg max-w-2xl mx-auto">
+        Quality dental care should be affordable and accessible. We make it easy.
+      </p>
+    </div>
+  </div>
+
+  <!-- Breadcrumbs (Moved below header) -->
+  <div class="bg-gray-50 border-b border-gray-200">
+    <div class="container mx-auto px-4 py-3">
+      <nav class="flex text-sm text-gray-500" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-2">
+          <li><a href="/" class="hover:text-primary-600">Home</a></li>
+          <li><span class="text-gray-400">/</span></li>
+          <li class="text-gray-900 font-medium" aria-current="page">Financing</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <div class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      
+      <!-- Intro -->
+      <section class="mb-16 max-w-3xl mx-auto text-center" data-aos="fade-up">
+        <h2 class="text-3xl font-bold font-heading text-gray-800 mb-6">Affordable Care in Temple</h2>
+        <p class="text-lg text-gray-600 mb-6">
+          At <strong>{clinicInfo.name}</strong>, we believe that financial concerns should never stand in the way of your oral health. We strive to make high-quality dentistry accessible to families in Temple (76502), Pflugerville, and Round Rock.
+        </p>
+        <p class="text-lg text-gray-600">
+          We are transparent about costs and will always discuss treatment fees and payment options before we begin any procedure.
+        </p>
+      </section>
+
+      <!-- Insurance Section -->
+      <section class="mb-20" data-aos="fade-up">
+        <div class="bg-primary-50 rounded-2xl p-8 md:p-12">
+          <div class="text-center mb-10">
+            <h2 class="text-2xl font-bold font-heading text-gray-800 mb-4">We Accept Most Insurance</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+              We work with most PPO insurance plans to maximize your benefits. Our team handles the paperwork and claims for you. Some of the major plans we accept include:
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {insuranceList.map(item => (
+              <div class="bg-white p-4 rounded-lg shadow-sm text-center font-medium text-gray-700 flex items-center justify-center h-16 border border-primary-100">
+                {item}
+              </div>
+            ))}
+          </div>
+
+          <div class="mt-8 text-center">
+            <p class="text-sm text-gray-500 italic">
+              *Don't see your plan listed? Call us at <strong><a href={`tel:${clinicInfo.phone}`}>{clinicInfo.displayPhone}</a></strong> to verify coverage.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Financing Options (CareCredit / Cherry) -->
+      <section class="mb-20 max-w-5xl mx-auto" data-aos="fade-up">
+        <h2 class="text-3xl font-bold font-heading text-gray-800 mb-10 text-center">Flexible Payment Plans</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- CareCredit -->
+          <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
+            <div class="h-12 mb-6 flex items-center">
+               <h3 class="text-2xl font-bold text-gray-900 tracking-tight">CareCredit</h3>
+            </div>
+            <p class="text-gray-600 mb-6 flex-grow">
+              CareCredit is a healthcare credit card designed for your health and wellness needs. It helps you pay for out-of-pocket expenses not covered by medical insurance by extending special financing options.
+            </p>
+            <ul class="list-disc list-inside text-gray-600 space-y-2 mb-8">
+              <li>0% Interest options available</li>
+              <li>Instant credit decision</li>
+              <li>Use for cosmetic or restorative work</li>
+            </ul>
+            <a 
+              href="https://www.carecredit.com/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="inline-block w-full text-center bg-gray-800 text-white font-medium py-3 rounded-md hover:bg-gray-900 transition-colors mt-auto"
+            >
+              Apply for CareCredit
+            </a>
+          </div>
+
+          <!-- Cherry / Sunbit -->
+          <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
+            <div class="h-12 mb-6 flex items-center">
+               <h3 class="text-2xl font-bold text-gray-900 tracking-tight">Cherry Financing</h3>
+            </div>
+            <p class="text-gray-600 mb-6 flex-grow">
+              Get treated now and pay over time with Cherry. Cherry is a point-of-sale financing solution that allows you to break large costs into smaller, manageable monthly payments.
+            </p>
+            <ul class="list-disc list-inside text-gray-600 space-y-2 mb-8">
+              <li>No hard credit check</li>
+              <li>High approval rates</li>
+              <li>Flexible payment terms</li>
+            </ul>
+            <a 
+              href="https://withcherry.com/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="inline-block w-full text-center bg-rose-600 text-white font-medium py-3 rounded-md hover:bg-rose-700 transition-colors mt-auto"
+            >
+              Apply with Cherry
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Standard Payment Methods -->
+      <section class="mb-16 max-w-4xl mx-auto text-center" data-aos="fade-up">
+        <h2 class="text-2xl font-bold font-heading text-gray-800 mb-6">Other Payment Methods</h2>
+        <p class="text-gray-600 mb-8">
+          We accept all standard forms of payment at the time of service.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 md:gap-8">
+          <div class="flex flex-col items-center">
+            <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center text-2xl border border-gray-100">💵</div>
+            <span class="mt-2 text-gray-700 font-medium">Cash</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center text-2xl border border-gray-100">💳</div>
+            <span class="mt-2 text-gray-700 font-medium">Credit Cards</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center text-2xl border border-gray-100">⚕️</div>
+            <span class="mt-2 text-gray-700 font-medium">HSA / FSA</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center text-2xl border border-gray-100">📝</div>
+            <span class="mt-2 text-gray-700 font-medium">Checks</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+        <div class="bg-gray-900 text-white p-8 rounded-lg shadow-xl">
+          <h2 class="text-2xl font-bold font-heading mb-4">Have Questions About Your Coverage?</h2>
+          <p class="text-gray-300 mb-6">
+            Our friendly front desk team is happy to perform a complimentary benefits check before your appointment so you know exactly what to expect.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <Button
+              href={`tel:${clinicInfo.phone}`}
+              text="Call to Verify Insurance"
+              variant="primary"
+              size="lg"
+              class="bg-white text-gray-900 hover:bg-gray-100 border-white"
+            />
+            <Button
+              href="/contact"
+              text="Send Us a Message"
+              variant="outline"
+              size="lg"
+              class="text-white border-white hover:bg-white hover:text-gray-900"
+            />
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</Layout>

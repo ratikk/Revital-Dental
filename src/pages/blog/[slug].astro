@@ -1,0 +1,141 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { blogPosts } from '../../utils/blogPosts';
+import { Image } from 'astro:assets';
+import { HERO_IMAGES } from '../../utils/images'; // Use a generic image for the header background
+
+export async function getStaticPaths() {
+  return blogPosts.map(post => ({
+    params: { slug: post.id },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Blog', href: '/blog' },
+  { label: post.title, href: `/blog/${post.id}` },
+];
+
+const pageTitle = post.seoTitle || post.title;
+const pageDescription = post.seoDescription || post.excerpt;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://revitaldentaltempletx.com').toString();
+
+// Handle Image Logic
+const isAstroImage = post.image && typeof post.image === 'object' && 'src' in post.image;
+const ogImage = isAstroImage
+  // @ts-ignore
+  ? new URL(post.image.src, Astro.site || 'https://revitaldentaltempletx.com').toString()
+  : new URL("/images/hero/lilac-dental-og-image.jpg", Astro.site || 'https://revitaldentaltempletx.com').toString();
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalURL={canonicalURL}
+  og={{
+    title: pageTitle,
+    description: pageDescription,
+    image: ogImage,
+    type: "article",
+    publishedTime: new Date(post.date).toISOString(),
+    authors: [post.author],
+    section: post.category,
+    tags: post.tags,
+    url: canonicalURL,
+    site_name: "Revital Dental"
+  }}
+>
+  {/* 1. GENERIC SMALL HEADER (Not the huge blog image) */}
+  <Hero
+    title="Dental Health Blog"
+    subtitle="Expert Advice from Revital Dental"
+    images={['/images/hero/dental-3.jpg']} 
+    height="xs" 
+    showAppointmentForm={false}
+    isHomePage={false}
+    overlay={true}
+  />
+
+  <Breadcrumbs items={breadcrumbItems} class="py-4 bg-gray-50 border-b border-gray-200"/>
+
+  <div class="py-12 bg-white">
+    <div class="container mx-auto px-4 max-w-4xl"> {/* Restricted width for reading comfort */}
+      <article>
+        {/* Header Section */}
+        <header class="mb-8 text-center">
+          <div class="flex flex-wrap justify-center items-center gap-3 text-sm text-gray-500 mb-4">
+             <span class="bg-primary-50 text-primary-700 px-3 py-1 rounded-full font-medium">
+               {post.category}
+             </span>
+             <span>&bull;</span>
+             <time datetime={post.date}>
+               {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+             </time>
+          </div>
+          
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-gray-900 mb-6 leading-tight">
+            {post.title}
+          </h1>
+
+          <div class="text-gray-600 font-medium">
+            By {post.author}
+          </div>
+        </header>
+
+        {/* 2. THE BLOG IMAGE (Contained, Rounded, Nice looking) */}
+        {post.image && (
+          <div class="mb-10 rounded-xl overflow-hidden shadow-lg mx-auto max-w-3xl">
+            {isAstroImage ? (
+              <Image
+                // @ts-ignore
+                src={post.image}
+                alt={post.title}
+                class="w-full h-auto object-cover"
+                loading="eager"
+                width={1024}
+                height={576}
+              />
+            ) : (
+              <img
+                // @ts-ignore
+                src={post.image}
+                alt={post.title}
+                class="w-full h-auto object-cover"
+              />
+            )}
+          </div>
+        )}
+
+        {/* Content Body */}
+        <div class="prose prose-lg prose-primary mx-auto text-gray-700" set:html={post.content} />
+
+        {/* Tags Footer */}
+        {post.tags && (
+          <div class="mt-12 pt-6 border-t border-gray-100">
+            <h3 class="text-sm font-semibold text-gray-500 mb-3 uppercase tracking-wider">Related Topics:</h3>
+            <div class="flex flex-wrap gap-2">
+              {post.tags.map(tag => (
+                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-md text-sm hover:bg-gray-200 transition-colors cursor-default">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Back Button */}
+        <div class="mt-12 text-center">
+          <a href="/blog" class="inline-flex items-center text-primary-600 hover:text-primary-800 font-semibold transition-colors">
+            &larr; Back to Articles
+          </a>
+        </div>
+
+      </article>
+    </div>
+  </div>
+</Layout>

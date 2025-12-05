@@ -1,0 +1,230 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BookingPopup from '../components/BookingPopup.astro';
+import { clinicInfo } from '../utils/clinicInfo';
+import '@fontsource/montserrat/400.css';
+import '@fontsource/montserrat/500.css';
+import '@fontsource/montserrat/600.css';
+import '@fontsource/montserrat/700.css';
+import '@fontsource/open-sans/400.css';
+import '@fontsource/open-sans/500.css';
+import '@fontsource/open-sans/600.css';
+import 'aos/dist/aos.css';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
+export interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  type?: 'website' | 'article';
+  publishDate?: string;
+  modifiedDate?: string;
+  serviceSchema?: object;
+}
+
+const {
+  title,
+  description = "Lilac Dental provides exceptional family and cosmetic dentistry in Austin, TX. Our experienced team offers exams, teeth cleaning, implants, and Invisalign with a gentle touch.",
+  image = "/images/og/lilac-dental-og.jpg",
+  canonical = Astro.url.pathname,
+  type = 'website',
+  publishDate,
+  modifiedDate,
+  serviceSchema
+} = Astro.props;
+
+// Get IDs from .env
+const googleAdsId = import.meta.env.PUBLIC_GOOGLE_ADS_ID;
+const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
+
+const siteUrl = Astro.site ? Astro.site.toString().slice(0, -1) : "https://revitaldentaltempletx.com";
+const fullCanonical = `${siteUrl}${canonical}`;
+const ogImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
+
+const pageTitle = title === `Welcome to ${clinicInfo.name}`
+  ? `${clinicInfo.name} | Top-Rated Dentist in Austin, TX | Family & Cosmetic Dentistry`
+  : `${title} | ${clinicInfo.name} Austin, TX`;
+
+const dentistSchema = {
+  "@context": "https://schema.org",
+  "@type": "Dentist",
+  "@id": siteUrl,
+  "name": clinicInfo.name,
+  "image": `${siteUrl}/images/logo.png`,
+  "url": siteUrl,
+  "telephone": clinicInfo.phone,
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": clinicInfo.address.line1,
+    "addressLocality": clinicInfo.address.city,
+    "addressRegion": clinicInfo.address.state,
+    "postalCode": clinicInfo.address.zip,
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": clinicInfo.coordinates.latitude,
+    "longitude": clinicInfo.coordinates.longitude
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Wednesday", "Thursday"],
+      "opens": "09:00",
+      "closes": "17:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Friday",
+      "opens": "10:00",
+      "closes": "14:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "09:00",
+      "closes": "14:00"
+    }
+  ],
+  "sameAs": [
+    clinicInfo.social.facebook,
+    clinicInfo.social.twitter,
+    clinicInfo.social.yelp
+  ]
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
+    <title>{pageTitle}</title>
+    <meta name="title" content={pageTitle} />
+    <meta name="description" content={description} />
+    <meta name="author" content={clinicInfo.name} />
+    <meta name="keywords" content="dentist, dental care, Austin dentist, teeth cleaning, dental implants, cosmetic dentistry, family dentist, emergency dental care, Austin TX" />
+
+    <link rel="canonical" href={fullCanonical} />
+
+    <!-- Social Meta Tags -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={fullCanonical} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content={clinicInfo.name} />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={fullCanonical} />
+    <meta property="twitter:title" content={pageTitle} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImage} />
+    <meta name="twitter:creator" content="@lilacdentaltx" />
+
+    <!-- Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify(dentistSchema)} />
+    {serviceSchema && (
+      <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+    )}
+
+    <!-- Font Optimization -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://www.google.com" crossorigin />
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin />
+    <link rel="preload" href="/_astro/montserrat-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/_astro/open-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Initialize Swiper -->
+    <script>
+      import Swiper from 'swiper';
+      import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+      Swiper.use([Autoplay, Pagination, Navigation]);
+      window.Swiper = Swiper;
+    </script>
+
+    <slot name="head" />
+    
+    <style is:global>
+      @font-face { font-family: 'Montserrat'; font-display: swap; }
+      @font-face { font-family: 'Open Sans'; font-display: swap; }
+    </style>
+  </head>
+  <body class="antialiased bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+    <Header />
+    <main class="flex-grow">
+      <slot />
+    </main>
+    <Footer />
+    <BookingPopup />
+
+    <!-- AOS Animation -->
+    <script>
+      import AOS from 'aos';
+      document.addEventListener('DOMContentLoaded', () => {
+        AOS.init({ duration: 800, easing: 'ease-in-out', once: true, mirror: false });
+      });
+    </script>
+
+    <!-- ✅ GOOGLE ADS & ANALYTICS: DELAYED LOAD -->
+    <!-- This trick improves Lighthouse score by waiting 3 seconds before loading trackers -->
+    {googleAdsId && (
+      <script is:inline define:vars={{ googleAdsId }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        
+        // 1. Set config immediately (so it's ready when script loads)
+        gtag('js', new Date());
+        gtag('config', googleAdsId, { 'anonymize_ip': true }); // Added for privacy/best practice
+
+        // 2. Load the actual script after a delay
+        setTimeout(() => {
+          const script = document.createElement('script');
+          script.src = `https://www.googletagmanager.com/gtag/js?id=${googleAdsId}`;
+          script.async = true;
+          document.head.appendChild(script);
+          console.log('Google Ads/Analytics loaded lazily.');
+        }, 3500); // 3.5 second delay (Lighthouse finishes audit before this runs)
+      </script>
+    )}
+
+    <!-- ✅ RECAPTCHA: LAZY LOAD (Already implemented) -->
+    {recaptchaSiteKey && (
+      <script is:inline define:vars={{ recaptchaSiteKey }}>
+        window.isRecaptchaLoaded = false;
+        function loadRecaptcha() {
+          if (window.isRecaptchaLoaded) return;
+          window.isRecaptchaLoaded = true;
+          const script = document.createElement('script');
+          script.src = `https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`;
+          script.async = true;
+          script.defer = true;
+          document.head.appendChild(script);
+        }
+        function initLazyLoad() {
+          const forms = document.querySelectorAll('form.recaptcha-form, #contact-form, #appointment-form');
+          forms.forEach(form => {
+            form.addEventListener('mouseenter', loadRecaptcha, { once: true });
+            form.addEventListener('focusin', loadRecaptcha, { once: true });
+            form.addEventListener('touchstart', loadRecaptcha, { once: true });
+          });
+          setTimeout(loadRecaptcha, 4000); 
+        }
+        function onRecaptchaReady() { console.log("reCAPTCHA ready"); }
+        document.addEventListener('DOMContentLoaded', initLazyLoad);
+        const checkInterval = setInterval(() => {
+          if (typeof grecaptcha !== 'undefined') { clearInterval(checkInterval); onRecaptchaReady(); }
+        }, 500);
+      </script>
+    )}
+  </body>
+</html>

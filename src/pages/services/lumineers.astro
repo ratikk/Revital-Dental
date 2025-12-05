@@ -1,0 +1,221 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Button from '../../components/Button.astro';
+import { clinicInfo } from '../../utils/clinicInfo';
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Services', href: '/services' },
+  { label: 'Lumineers', href: '/services/lumineers' },
+];
+
+// --- SEO: COSMETIC PROCEDURE SCHEMA ---
+const lumineersSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  "name": "Lumineers No-Prep Veneers",
+  "procedureType": "CosmeticProcedure",
+  "bodyLocation": "Teeth",
+  "description": "Ultra-thin, no-preparation dental veneers applied without drilling sensitive tooth structure.",
+  "provider": {
+    "@type": "Dentist",
+    "name": clinicInfo.name,
+    "telephone": clinicInfo.phone,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": clinicInfo.address.line1,
+      "addressLocality": clinicInfo.address.city,
+      "addressRegion": clinicInfo.address.state,
+      "postalCode": clinicInfo.address.zip,
+      "addressCountry": "US"
+    }
+  },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock",
+    "url": "https://revitaldentaltempletx.com/services/lumineers"
+  }
+};
+---
+
+<Layout
+  title="Lumineers® in Temple, TX (76502) | No-Prep Veneers | Revital Dental"
+  description="Transform your smile without drilling or shots. Revital Dental offers custom Lumineers in Temple. The painless, reversible alternative to traditional veneers."
+  serviceSchema={lumineersSchema}
+>
+  <!-- CLEAN, SLIM HEADER -->
+  <div class="bg-primary-900 text-white pt-32 pb-16 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white" />
+      </svg>
+    </div>
+    
+    <div class="container mx-auto px-4 text-center relative z-10">
+      <h1 class="text-4xl md:text-5xl font-bold font-heading mb-4">Lumineers® in Temple</h1>
+      <p class="text-primary-200 text-lg max-w-2xl mx-auto">
+        The painless path to a perfect smile — No drills, no shots.
+      </p>
+    </div>
+  </div>
+
+  <div class="bg-gray-50 border-b border-gray-200">
+    <div class="container mx-auto px-4 py-3">
+      <nav class="flex text-sm text-gray-500" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-2">
+          <li><a href="/" class="hover:text-primary-600">Home</a></li>
+          <li><span class="text-gray-400">/</span></li>
+          <li><a href="/services" class="hover:text-primary-600">Services</a></li>
+          <li><span class="text-gray-400">/</span></li>
+          <li class="text-gray-900 font-medium" aria-current="page">Lumineers</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <div class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <!-- Introduction -->
+      <section class="mb-16 max-w-3xl mx-auto text-center" data-aos="fade-up">
+        <h2 class="text-3xl font-bold font-heading text-gray-800 mb-6">A Flawless Smile Without the Drill</h2>
+        <p class="text-lg text-gray-600 mb-6">
+          Do you want a Hollywood smile but feel nervous about the tooth reduction required for traditional veneers? <strong>Lumineers®</strong> might be the perfect solution. At <strong>{clinicInfo.name}</strong> in Temple (76502), we offer this advanced, minimally invasive cosmetic treatment.
+        </p>
+        <p class="text-lg text-gray-600">
+          Lumineers are ultra-thin (about as thin as a contact lens) and can be applied seamlessly over your existing teeth. Because they are so thin, we often don't need to remove any sensitive tooth enamel, making the procedure virtually painless.
+        </p>
+      </section>
+
+      <!-- Comparison Table -->
+      <section class="mb-16 max-w-4xl mx-auto" data-aos="fade-up">
+        <h2 class="text-2xl font-bold font-heading text-gray-800 mb-8 text-center">Lumineers vs. Traditional Veneers</h2>
+        <div class="overflow-x-auto shadow-lg rounded-xl border border-gray-100">
+          <table class="w-full text-left border-collapse bg-white">
+            <thead class="bg-primary-50 text-primary-900">
+              <tr>
+                <th class="p-5 border-b border-primary-100">Feature</th>
+                <th class="p-5 border-b border-primary-100">Traditional Veneers</th>
+                <th class="p-5 border-b border-primary-100 font-bold bg-primary-100">Lumineers®</th>
+              </tr>
+            </thead>
+            <tbody class="text-gray-600">
+              <tr class="border-b border-gray-100 hover:bg-gray-50">
+                <td class="p-5 font-medium text-gray-800">Thickness</td>
+                <td class="p-5">~0.5mm (Cardstock)</td>
+                <td class="p-5 font-bold text-primary-700 bg-primary-50/30">~0.2mm (Contact Lens)</td>
+              </tr>
+              <tr class="border-b border-gray-100 hover:bg-gray-50">
+                <td class="p-5 font-medium text-gray-800">Preparation</td>
+                <td class="p-5">Requires enamel removal</td>
+                <td class="p-5 font-bold text-primary-700 bg-primary-50/30">Minimal to No Prep</td>
+              </tr>
+              <tr class="border-b border-gray-100 hover:bg-gray-50">
+                <td class="p-5 font-medium text-gray-800">Anesthesia</td>
+                <td class="p-5">Usually required (Shots)</td>
+                <td class="p-5 font-bold text-primary-700 bg-primary-50/30">None required</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="p-5 font-medium text-gray-800">Reversibility</td>
+                <td class="p-5">Permanent</td>
+                <td class="p-5 font-bold text-primary-700 bg-primary-50/30">Potentially Reversible</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Benefits -->
+      <section class="mb-16 max-w-3xl mx-auto" data-aos="fade-up">
+        <h2 class="text-2xl font-bold font-heading text-gray-800 mb-6 text-center">Why Choose Lumineers?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2">
+              <span class="text-primary-600">✨</span> Comfortable
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Because there is no drilling of sensitive tooth structure, there is no need for shots or acrylic temporary teeth while you wait.
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2">
+              <span class="text-primary-600">🛡️</span> Durable
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Despite being ultra-thin, the patented porcelain is incredibly strong and clinically proven to last over 20 years.
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2">
+              <span class="text-primary-600">🦷</span> Instant Correction
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Lumineers can instantly close gaps and fix uneven teeth, offering a straighter smile without years of braces.
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2">
+              <span class="text-primary-600">💎</span> Permanently White
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Lumineers cover stains and discolorations that don't respond to whitening, giving you a permanently bright smile.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- The Process -->
+      <section class="mb-16 max-w-3xl mx-auto" data-aos="fade-up">
+        <h2 class="text-2xl font-bold font-heading text-gray-800 mb-6 text-center">Your Transformation in 2 Visits</h2>
+        <div class="space-y-6">
+          <div class="flex gap-4 p-6 bg-gray-50 rounded-xl">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-primary-600 text-white flex items-center justify-center font-bold text-xl">1</div>
+            <div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Visit 1: Impressions</h3>
+              <p class="text-gray-600">
+                We take precise molds of your teeth and photos of your smile. We choose the perfect shade together. Unlike traditional veneers, there is usually no drilling and no need for temporaries.
+              </p>
+            </div>
+          </div>
+          <div class="flex gap-4 p-6 bg-gray-50 rounded-xl">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-primary-600 text-white flex items-center justify-center font-bold text-xl">2</div>
+            <div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Visit 2: Placement</h3>
+              <p class="text-gray-600">
+                About 2 weeks later, your custom Lumineers arrive. We check the fit and then bond them to your teeth painlessley. You leave with a brand new smile in about an hour!
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Call to Action -->
+      <section class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+        <div class="bg-primary-50 p-8 rounded-lg">
+          <h2 class="text-2xl font-bold font-heading text-gray-800 mb-4">Are You a Candidate?</h2>
+          <p class="text-gray-600 mb-6">
+            Lumineers aren't for everyone, but they are a fantastic option for many. Schedule a consultation at our Temple office to see if this no-prep solution fits your needs.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <Button
+              href={clinicInfo.booking.url}
+              text="Book Consultation"
+              variant="primary"
+              size="lg"
+              target="_blank"
+              rel="noopener noreferrer"
+            />
+            <Button
+              href={`tel:${clinicInfo.phone}`}
+              text="Call Us"
+              variant="outline"
+              size="lg"
+            />
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</Layout>

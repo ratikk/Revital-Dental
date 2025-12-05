@@ -1,0 +1,145 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { clinicInfo } from '../utils/clinicInfo';
+import { TEAM_IMAGES } from '../utils/images';
+
+const teamMembers = [
+  {
+    name: "Dr. Suman Kondragunta",
+    title: "Lead Dentist",
+    image: TEAM_IMAGES.drSuman,
+    bio: "With over 11 years of full-time dental experience, Dr. Suman Kondragunta (AKA, Dr. K) has dedicated his career to providing exceptional oral healthcare. He earned his Doctor of Dental Surgery from New York University College of Dentistry in 2011. After graduating, he spent years serving underserved communities in New Mexico, honing his skills in restoring beautiful smiles.\n\nNow proudly serving the **Temple** community, Dr. K treats every patient with compassion and a gentle touch. When his family began to expand, he and his wife chose to put down roots here in Texas. They couldn't be happier to call **Central Texas** home.\n\nOutside the office, Dr. K is a true foodie who loves meditation and authentic Tex-Mex tacos. He enjoys hiking and biking through local trails with his wife and their two children, Arnav and Avan. An artist at heart, he is also passionate about wood carving, sculpture, and painting.",
+    credentials: [
+      "DDS - New York University College of Dentistry, 2011",
+      "11+ Years of Clinical Experience",
+      "Focus on Gentle, Compassionate Care"
+    ]
+  },
+  {
+    // ✅ UPDATED: Dr. Sangeeta Gantayat (Dr. G)
+    name: "Dr. Sangeeta Gantayat",
+    title: "Dentist",
+    image: TEAM_IMAGES.drSangeeta, // Uses the new image from utils/images.ts
+    bio: "Dr. Sangeeta Gantayat DMD (Dr. G) brings a brilliant mix of professional expertise and personal touch to her dental practice. She takes great pride in brightening up the city one smile at a time, providing her patients with top-notch dental care. Known for her compassion and patient-focused approach, she embodies the perfect blend of clinical proficiency and a caring demeanor, making dental visits a comforting and stress-free experience.\n\n**Why she became a dentist:** She comes from a family of doctors and dentists and always wanted to be in the profession to help people. The fact that dentistry helps her balance her professional and family goals attracted her to this career path. She completed her dental school at GDCH Ahmedabad, India in 2006 and then moved to the US, accomplishing her Doctor of Dental Medicine degree from Rutgers University, New Jersey in 2013.\n\nBut behind this successful dentist, there's a story of a woman who is deeply committed to her family. At home, she is the affectionate mother of two lively young daughters, aged six and three. Their endless energy and ceaseless curiosity bring a vibrant spark to her day. Alongside these roles, she is also a loving wife to her dashing husband, an IT professional who supports their shared dedication to family.\n\nJuggling her career and family life with grace, Dr. G believes her experiences as a mother and wife enrich her dental practice. They underscore the importance of patience, clear communication, and unconditional care — values that she brings into every patient interaction. In her free time, Dr. G indulges in her passion for gardening and cooking to rejuvenate.\n\nDr. G extends a warm invitation to join her dental family, where you will receive top-tier dental care coupled with a personal touch. In her capable hands, you can expect nothing less than a comfortable, rewarding experience.",
+    credentials: [
+      "DMD - Rutgers University, New Jersey, 2013",
+      "BDS - Government Dental College, Ahmedabad, India, 2006",
+      "Specializes in Compassionate and Family-Friendly Dental Care"
+    ]
+  }
+];
+---
+
+<Layout
+  title="About Revital Dental | Top Family Dentist in Temple, TX (76502)"
+  description="Meet Dr. Suman Kondragunta & Dr. Sangeeta Gantayat at Revital Dental. Providing expert family & cosmetic dentistry to Temple, Belton, and the 76502 community."
+>
+  <!-- CLEAN, SLIM HEADER -->
+  <div class="bg-primary-900 text-white pt-32 pb-16 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white" />
+      </svg>
+    </div>
+    
+    <div class="container mx-auto px-4 text-center relative z-10">
+      <h1 class="text-4xl md:text-5xl font-bold font-heading mb-4">About Revital Dental</h1>
+      <p class="text-primary-200 text-lg max-w-2xl mx-auto">
+        Your trusted partners in dental health, serving Temple since 2022.
+      </p>
+    </div>
+  </div>
+
+  <div class="bg-gray-50 border-b border-gray-200">
+    <div class="container mx-auto px-4 py-3">
+      <nav class="flex text-sm text-gray-500" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-2">
+          <li><a href="/" class="hover:text-primary-600">Home</a></li>
+          <li><span class="text-gray-400">/</span></li>
+          <li class="text-gray-900 font-medium" aria-current="page">About Us</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <div class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      
+      <!-- SECTION 1: Meet Our Team -->
+      <section class="mb-20" data-aos="fade-up">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold font-heading text-gray-800 mb-4">Meet Our Doctors</h2>
+          <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+            Our experienced dentists are dedicated to treating every patient like family.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {teamMembers.map(member => (
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col h-full hover:shadow-xl transition-shadow duration-300">
+              <div class="relative aspect-[4/3] overflow-hidden">
+                <img
+                  src={member.image.src}
+                  alt={`${member.name} - Dentist in Temple TX`}
+                  class="absolute inset-0 w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700"
+                  width={member.image.width}
+                  height={member.image.height}
+                />
+              </div>
+              <div class="p-8 flex flex-col flex-grow">
+                <h3 class="text-2xl font-bold font-heading text-gray-800 mb-1">{member.name}</h3>
+                <p class="text-primary-600 font-bold uppercase tracking-wide text-sm mb-6">{member.title}</p>
+                
+                <div class="prose prose-lg text-gray-600 mb-8 flex-grow">
+                  {member.bio.split('\n\n').map(paragraph => (
+                    <p class="mb-4" set:html={paragraph.replace(/\*\*(.*?)\*\*/g, '<strong class="text-primary-800">$1</strong>')} />
+                  ))}
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-5 mt-auto">
+                  <h4 class="font-bold text-gray-800 mb-3 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-600" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    </svg>
+                    Credentials
+                  </h4>
+                  <ul class="space-y-2">
+                    {member.credentials.map(credential => (
+                      <li class="text-sm text-gray-600 flex items-start gap-2">
+                        <span class="text-primary-400 mt-1">•</span>
+                        {credential}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- SECTION 2: Our Philosophy -->
+      <section class="mb-20" data-aos="fade-up">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <h2 class="text-3xl font-bold font-heading text-gray-800 mb-6">Our Philosophy</h2>
+            <div class="prose prose-lg text-gray-600">
+              <p class="mb-6">
+                At <strong>{clinicInfo.name}</strong>, we are proud to serve the <strong>Temple</strong> community with dental care that goes beyond technical expertise.
+                Located conveniently on <strong>South 31st Street</strong>, our philosophy centers on creating a welcoming environment for families in **Temple (76502)**, Belton, and the surrounding areas.
+              </p>
+              <p>
+                We believe every patient deserves to feel heard and respected. We take the time to understand your unique needs, developing personalized treatment plans that align with your lifestyle.
+              </p>
+            </div>
+          </div>
+          <div class="relative aspect-square w-full rounded-2xl bg-gray-100 flex items-center justify-center text-gray-400">
+             <!-- Placeholder for office image if not available -->
+             <span class="text-lg">Office Image</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</Layout>

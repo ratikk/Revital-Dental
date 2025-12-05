@@ -1,0 +1,202 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Button from '../../components/Button.astro';
+import { clinicInfo } from '../../utils/clinicInfo';
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Locations', href: '#' }, // Generic parent
+  { label: 'Wells Branch', href: '/locations/dentist-wells-branch' },
+];
+---
+
+<Layout
+  title="Dentist near Wells Branch, Temple (78728) | Revital Dental"
+  description="Looking for a dentist near Wells Branch? Revital Dental is located just minutes away off IH-35. 5-Star family & cosmetic dentistry serving the 78728 community."
+>
+  <!-- SLIM HEADER -->
+  <div class="bg-primary-900 text-white pt-32 pb-16 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white" />
+      </svg>
+    </div>
+    
+    <div class="container mx-auto px-4 text-center relative z-10">
+      <h1 class="text-4xl md:text-5xl font-bold font-heading mb-4">Dentist Serving Wells Branch</h1>
+      <p class="text-primary-200 text-lg max-w-2xl mx-auto">
+        5-Star dental care, just 3 minutes down the road from Wells Branch Parkway.
+      </p>
+    </div>
+  </div>
+
+  <div class="bg-gray-50 border-b border-gray-200">
+    <div class="container mx-auto px-4 py-3">
+      <nav class="flex text-sm text-gray-500" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-2">
+          <li><a href="/" class="hover:text-primary-600">Home</a></li>
+          <li><span class="text-gray-400">/</span></li>
+          <li><span class="text-gray-900 font-medium">Service Areas</span></li>
+          <li><span class="text-gray-400">/</span></li>
+          <li class="text-gray-900 font-medium" aria-current="page">Wells Branch</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <div class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      
+      <!-- Intro Section -->
+      <section class="mb-16 max-w-4xl mx-auto text-center" data-aos="fade-up">
+        <h2 class="text-3xl font-bold font-heading text-gray-800 mb-6">World-Class Dentistry, Right in Your Neighborhood</h2>
+        <p class="text-lg text-gray-600 mb-6">
+          If you live in <strong>Wells Branch (78728)</strong>, you don't need to fight traffic into downtown Temple to find a top-rated dentist. 
+          <strong>{clinicInfo.name}</strong> is conveniently located right off <strong>Interstate 35</strong> at Parmer Lane (Tech Ridge), just a few minutes south of Wells Branch Parkway.
+        </p>
+        <p class="text-lg text-gray-600">
+          We treat hundreds of families from the Wells Branch community who appreciate our gentle approach, modern technology, and convenient location.
+        </p>
+      </section>
+
+      <!-- Why Wells Branch Residents Choose Us -->
+      <section class="mb-16" data-aos="fade-up">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Reason 1 -->
+          <div class="bg-primary-50 p-8 rounded-xl border border-primary-100 text-center">
+            <div class="text-4xl mb-4">🚗</div>
+            <h3 class="text-xl font-bold text-primary-800 mb-3">Ultra Convenient</h3>
+            <p class="text-gray-600">
+              We are located on the I-35 frontage road. From Wells Branch, it's a straight shot south. Easy in, easy out, with plenty of parking.
+            </p>
+          </div>
+
+          <!-- Reason 2 -->
+          <div class="bg-primary-50 p-8 rounded-xl border border-primary-100 text-center">
+            <div class="text-4xl mb-4">👨‍👩‍👧‍👦</div>
+            <h3 class="text-xl font-bold text-primary-800 mb-3">Family Focused</h3>
+            <p class="text-gray-600">
+              From toddlers getting their first exam to grandparents needing dentures, we treat the whole family under one roof.
+            </p>
+          </div>
+
+          <!-- Reason 3 -->
+          <div class="bg-primary-50 p-8 rounded-xl border border-primary-100 text-center">
+            <div class="text-4xl mb-4">🚑</div>
+            <h3 class="text-xl font-bold text-primary-800 mb-3">Emergency Care</h3>
+            <p class="text-gray-600">
+              Toothache? We offer same-day emergency appointments for our Wells Branch neighbors. We won't make you wait in pain.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services List -->
+      <section class="mb-16 max-w-5xl mx-auto" data-aos="fade-up">
+        <div class="bg-white border border-gray-200 rounded-2xl p-8 md:p-10 shadow-lg">
+          <h2 class="text-2xl font-bold font-heading text-gray-800 mb-6 text-center">Services We Offer to 78728 Residents</h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+            <ul class="space-y-3">
+              <li class="flex items-center gap-3">
+                <span class="text-green-500 font-bold">✓</span>
+                <a href="/services/dental-checkup" class="text-gray-700 hover:text-primary-600 hover:underline">Routine Checkups & Cleanings</a>
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="text-green-500 font-bold">✓</span>
+                <a href="/services/emergency-dentistry" class="text-gray-700 hover:text-primary-600 hover:underline">Emergency Dental Care</a>
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="text-green-500 font-bold">✓</span>
+                <a href="/services/dental-implants" class="text-gray-700 hover:text-primary-600 hover:underline">Dental Implants</a>
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="text-green-500 font-bold">✓</span>
+                <a href="/services/invisalign" class="text-gray-700 hover:text-primary-600 hover:underline">Invisalign® Clear Aligners</a>
+              </li>
+            </ul>
+            <ul class="space-y-3">
+              <li class="flex items-center gap-3">
+                <span class="text-green-500 font-bold">✓</span>
+                <a href="/services/teeth-whitening" class="text-gray-700 hover:text-primary-600 hover:underline">Professional Teeth Whitening</a>
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="text-green-500 font-bold">✓</span>
+                <a href="/services/dental-veneers" class="text-gray-700 hover:text-primary-600 hover:underline">Porcelain Veneers</a>
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="text-green-500 font-bold">✓</span>
+                <a href="/services/root-canal" class="text-gray-700 hover:text-primary-600 hover:underline">Root Canal Therapy</a>
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="text-green-500 font-bold">✓</span>
+                <a href="/services/pediatric-dentistry" class="text-gray-700 hover:text-primary-600 hover:underline">Children's Dentistry</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Map / Directions Section -->
+      <section class="mb-16" data-aos="fade-up">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="text-2xl font-bold font-heading text-gray-800 mb-4">Easy Directions from Wells Branch</h2>
+            <p class="text-gray-600 mb-4">
+              We are located in the Tech Ridge area, just south of Wells Branch.
+            </p>
+            <ol class="space-y-4 list-decimal list-inside text-gray-600 bg-gray-50 p-6 rounded-lg">
+              <li>Head <strong>East</strong> on Wells Branch Pkwy toward IH-35.</li>
+              <li>Turn <strong>Right</strong> onto the IH-35 South Frontage Road.</li>
+              <li>Drive approximately <strong>1.5 miles</strong> south.</li>
+              <li>Revital Dental will be on your <strong>right</strong> (Suite 110).</li>
+            </ol>
+            <p class="mt-4 font-bold text-primary-700">Total Drive Time: ~3-5 Minutes</p>
+          </div>
+          <div class="h-[350px] bg-gray-200 rounded-xl overflow-hidden shadow-md">
+             <!-- Embedded Google Map -->
+             <iframe 
+               width="100%" 
+               height="100%" 
+               style="border:0;" 
+               loading="lazy" 
+               allowfullscreen 
+               referrerpolicy="no-referrer-when-downgrade"
+               src={`https://maps.google.com/maps?q=${encodeURIComponent(clinicInfo.address.full)}&t=&z=14&ie=UTF8&iwloc=&output=embed`}>
+             </iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+        <div class="bg-gray-900 p-8 rounded-2xl shadow-xl text-white">
+          <h2 class="text-2xl font-bold font-heading mb-4">Accepting New Patients from Wells Branch</h2>
+          <p class="text-gray-300 mb-8">
+            Experience the difference of a locally owned, patient-focused dental practice. We accept most insurance plans.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <Button
+              href={clinicInfo.booking.url}
+              text="Book Appointment"
+              variant="primary"
+              size="lg"
+              class="bg-white text-gray-900 hover:bg-gray-100 border-white"
+              target="_blank"
+              rel="noopener noreferrer"
+            />
+            <Button
+              href={`tel:${clinicInfo.phone}`}
+              text="Call Us Today"
+              variant="outline"
+              size="lg"
+              class="text-white border-white hover:bg-white hover:text-gray-900"
+            />
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</Layout>

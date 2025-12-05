@@ -1,0 +1,209 @@
+---
+import Button from './Button.astro';
+import { Image } from 'astro:assets';
+import { clinicInfo } from '../utils/clinicInfo';
+import type { ImageMetadata } from 'astro';
+
+export interface Props {
+  // Allow both smart images (ImageMetadata) and simple strings (legacy)
+  images?: (string | ImageMetadata)[];
+  title?: string;
+  subtitle?: string;
+  height?: 'sm' | 'md' | 'lg' | 'xl';
+  overlay?: boolean;
+  buttonText?: string;
+  buttonLink?: string;
+  buttonVariant?: 'primary' | 'secondary' | 'outline';
+  secondaryButtonText?: string;
+  secondaryButtonLink?: string;
+  showAppointmentForm?: boolean;
+  isHomePage?: boolean;
+}
+
+const {
+  images = [],
+  title,
+  subtitle,
+  height = 'lg',
+  overlay = true,
+  buttonText,
+  buttonLink,
+  buttonVariant = 'primary',
+  secondaryButtonText,
+  secondaryButtonLink,
+  showAppointmentForm = false,
+  isHomePage = false,
+} = Astro.props;
+---
+
+<section class={`relative ${isHomePage ? 'mt-32' : 'mt-24'}`}>
+  <div class="container mx-auto px-4 max-w-7xl">
+    <div class="grid grid-cols-12 gap-4 sm:gap-8">
+      <div class={`col-span-12 ${showAppointmentForm ? 'lg:col-span-8' : 'lg:col-span-12'} relative`}>
+        <div class="relative w-full overflow-hidden rounded-lg">
+          <div class="swiper heroSwiper">
+            <div class="swiper-wrapper">
+              {images.map((image, index) => (
+                <div class="swiper-slide">
+                  <div class="relative pb-[56.25%]"> <!-- 16:9 aspect ratio -->
+                    {/* Logic to handle both optimized assets and legacy string paths */}
+                    {typeof image === 'string' ? (
+                      <img
+                        src={image}
+                        alt="Dental care"
+                        class="absolute inset-0 w-full h-full object-cover object-center"
+                        loading={index === 0 ? "eager" : "lazy"}
+                      />
+                    ) : (
+                      <Image
+                        src={image}
+                        alt="Dental care"
+                        width={1920}
+                        height={1080}
+                        class="absolute inset-0 w-full h-full object-cover object-center"
+                        loading={index === 0 ? "eager" : "lazy"}
+                        fetchpriority={index === 0 ? "high" : "auto"}
+                        widths={[640, 768, 1024, 1366, 1600, 1920]} 
+                        sizes={`(max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px`}
+                        format="webp"
+                        quality={80}
+                      />
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+
+          {overlay && <div class="absolute inset-0 bg-gray-900 bg-opacity-40"></div>}
+        </div>
+
+        {isHomePage && (
+          <div class="mt-6 sm:mt-8 text-center">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold font-heading mb-3 sm:mb-4 text-gray-800">
+              {title || `Welcome to ${clinicInfo.name}`}
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600">{subtitle || "Your trusted partner in dental care"}</p>
+          </div>
+        )}
+        {!isHomePage && title && (
+          <div class="mt-6 sm:mt-8 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold font-heading mb-3 sm:mb-4 text-gray-800">{title}</h1>
+            {subtitle && <p class="text-lg md:text-xl text-gray-600">{subtitle}</p>}
+          </div>
+        )}
+      </div>
+
+      {showAppointmentForm && (
+        <div class="col-span-12 lg:col-span-4">
+          <div class="bg-white rounded-lg shadow-lg p-6" data-aos="fade-left">
+            <h2 class="text-2xl font-bold text-primary-600 text-center mb-6">Request an Appointment</h2>
+            <form id="appointment-form" class="space-y-4">
+              <div>
+                <label for="full-name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                <input type="text" id="full-name" name="fullName" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500" placeholder="Enter your full name" />
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500" placeholder="Your email" />
+                </div>
+                <div>
+                  <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                  <input type="tel" id="phone" name="phone" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500" placeholder="Your phone" />
+                </div>
+              </div>
+              <div>
+                <label for="dob" class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+                <input type="date" id="dob" name="dob" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500" />
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Preferred Date</label>
+                  <input type="date" id="date" name="preferredDate" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500" />
+                </div>
+                <div>
+                  <label for="time" class="block text-sm font-medium text-gray-700 mb-1">Preferred Time</label>
+                  <select id="time" name="preferredTime" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500">
+                    <option value="">Select a time</option>
+                    <option value="morning">Morning (8:00 AM - 12:00 PM)</option>
+                    <option value="afternoon">Afternoon (12:00 PM - 5:00 PM)</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label for="reason" class="block text-sm font-medium text-gray-700 mb-1">Reason for Visit</label>
+                <select id="reason" name="reasonForVisit" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500">
+                  <option value="">Select a reason</option>
+                  <option value="checkup">Regular Checkup</option>
+                  <option value="cleaning">Teeth Cleaning</option>
+                  <option value="emergency">Dental Emergency</option>
+                  <option value="consultation">Consultation</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="flex items-center">
+                <input type="checkbox" id="consent" name="smsConsent" required class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded" />
+                <label for="consent" class="ml-2 block text-sm text-gray-700">I consent to receiving text messages from {clinicInfo.name}</label>
+              </div>
+              <p class="text-xs text-red-600 font-medium mt-3"><span class="font-bold">Please Note:</span> A $25 fee applies to cancellations made with less than 24 hours' notice.</p>
+              <p class="text-xs text-gray-500 mt-2">This form is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:text-primary-700">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:text-primary-700">Terms of Service</a> apply.</p>
+              <button type="submit" class="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 transition-colors duration-200">Request Appointment</button>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    const appointmentForm = document.getElementById('appointment-form');
+    const heroSlider = document.querySelector('.heroSwiper');
+
+    if (appointmentForm) {
+      const { submitForm } = await import('../utils/forms');
+      appointmentForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        try {
+          const formData = new FormData(appointmentForm as HTMLFormElement);
+          const data = Object.fromEntries(formData.entries());
+          // @ts-ignore
+          await submitForm({ ...data, formType: 'appointment' });
+          alert('Appointment request submitted successfully! We will contact you shortly.');
+          (appointmentForm as HTMLFormElement).reset();
+        } catch (error) {
+          console.error('Error submitting form:', error);
+          alert('Failed to submit form. Please try again later.');
+        }
+      });
+    }
+
+    if (heroSlider) {
+      const Swiper = (await import('swiper')).default;
+      const { Autoplay, Pagination } = await import('swiper/modules');
+      await import('swiper/css');
+      await import('swiper/css/pagination');
+
+      new Swiper('.heroSwiper', {
+        modules: [Autoplay, Pagination],
+        slidesPerView: 1,
+        loop: true,
+        autoHeight: false,
+        resizeObserver: true,
+        autoplay: { delay: 4000, disableOnInteraction: false },
+        pagination: { el: '.swiper-pagination', clickable: true },
+      });
+    }
+  });
+</script>
+
+<style>
+  .heroSwiper { width: 100%; height: 100%; }
+  .swiper-slide { height: 100%; }
+  .swiper-pagination { bottom: 20px !important; }
+  .swiper-pagination-bullet { background: white !important; opacity: 0.5; }
+  .swiper-pagination-bullet-active { opacity: 1; }
+</style>

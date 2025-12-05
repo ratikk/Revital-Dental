@@ -1,0 +1,160 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Patient Education', href: '/patient-education' },
+  { label: 'FAQ', href: '/patient-education/faq' },
+];
+
+const faqs = [
+  {
+    category: "General Dental Care",
+    questions: [
+      {
+        q: "How often should I visit the dentist?",
+        a: "We recommend visiting the dentist every six months for routine checkups and professional cleanings. However, some patients may need more frequent visits based on their oral health needs."
+      },
+      {
+        q: "What's the best way to brush my teeth?",
+        a: "Use a soft-bristled toothbrush and fluoride toothpaste. Brush at a 45-degree angle to your gums, using gentle circular motions. Brush all surfaces of your teeth for at least two minutes, twice daily."
+      },
+      {
+        q: "Why is flossing important?",
+        a: "Flossing removes plaque and food particles between teeth where your toothbrush can't reach. Daily flossing helps prevent cavities, gum disease, and bad breath."
+      }
+    ]
+  },
+  {
+    category: "Dental Procedures",
+    questions: [
+      {
+        q: "Does getting a filling hurt?",
+        a: "No, you shouldn't feel pain during a filling. We use local anesthesia to numb the area completely. You might feel slight pressure or vibration, but no pain."
+      },
+      {
+        q: "How long do dental implants last?",
+        a: "With proper care and maintenance, dental implants can last a lifetime. The crown attached to the implant typically needs replacement every 10-15 years due to normal wear."
+      },
+      {
+        q: "Is teeth whitening safe?",
+        a: "Yes, professional teeth whitening is safe when performed under dental supervision. We use approved whitening agents and take precautions to protect your gums and sensitive teeth."
+      }
+    ]
+  },
+  {
+    category: "Insurance and Payment",
+    questions: [
+      {
+        q: "What insurance plans do you accept?",
+        a: "We accept most major dental insurance plans. Our team will help verify your coverage and maximize your benefits. Contact our office for specific insurance questions."
+      },
+      {
+        q: "Do you offer payment plans?",
+        a: "Yes, we offer various financing options including Cherry and in-house payment plans. We'll work with you to make dental care affordable."
+      },
+      {
+        q: "What forms of payment do you accept?",
+        a: "We accept cash, credit cards (Visa, Mastercard, American Express, Discover), debit cards, and HSA/FSA cards. We also work with various financing options."
+      }
+    ]
+  },
+  {
+    category: "Emergency Dental Care",
+    questions: [
+      {
+        q: "What should I do in a dental emergency?",
+        a: "Contact our office immediately at (737) 291-3927. For after-hours emergencies, follow the prompts to reach our on-call dentist. If you experience severe trauma or bleeding, visit the nearest emergency room."
+      },
+      {
+        q: "What constitutes a dental emergency?",
+        a: "Dental emergencies include severe tooth pain, knocked-out teeth, broken or chipped teeth, lost fillings or crowns, severe bleeding or swelling, and trauma to the mouth or jaw."
+      }
+    ]
+  },
+  {
+    category: "Children's Dental Care",
+    questions: [
+      {
+        q: "When should my child first visit the dentist?",
+        a: "The American Academy of Pediatric Dentistry recommends scheduling your child's first dental visit by their first birthday or when their first tooth appears."
+      },
+      {
+        q: "Are dental X-rays safe for children?",
+        a: "Yes, dental X-rays are safe for children. We use digital X-rays that minimize radiation exposure and take precautions like lead aprons for added protection."
+      }
+    ]
+  }
+];
+---
+
+<Layout 
+  title="Frequently Asked Questions" 
+  description="Find answers to common dental questions about procedures, insurance, emergency care, and more at Revital Dental in Temple, TX."
+>
+  <Hero
+    title="Frequently Asked Questions"
+    subtitle="Find answers to common dental questions"
+    images={["/images/hero/dental-2.jpg"]}
+    height="md"
+  />
+  
+  <Breadcrumbs items={breadcrumbItems} />
+  
+  <div class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <!-- Introduction -->
+      <section class="mb-16 max-w-3xl mx-auto" data-aos="fade-up">
+        <h2 class="text-3xl font-bold font-heading text-gray-800 mb-6">Common Dental Questions</h2>
+        <p class="text-lg text-gray-600">
+          Find answers to frequently asked questions about dental care, procedures, and policies. 
+          If you don't find the answer you're looking for, please don't hesitate to contact us.
+        </p>
+      </section>
+
+      <!-- FAQ Categories -->
+      <div class="max-w-3xl mx-auto">
+        {faqs.map((category) => (
+          <section class="mb-12" data-aos="fade-up">
+            <h2 class="text-2xl font-bold font-heading text-gray-800 mb-6">{category.category}</h2>
+            
+            <div class="space-y-6">
+              {category.questions.map((faq) => (
+                <div class="bg-white shadow-sm border border-gray-100 rounded-lg p-6">
+                  <h3 class="text-xl font-bold text-gray-800 mb-3">{faq.q}</h3>
+                  <p class="text-gray-600">{faq.a}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+
+      <!-- Contact CTA -->
+      <section class="max-w-3xl mx-auto mt-16" data-aos="fade-up">
+        <div class="bg-primary-50 p-8 rounded-lg text-center">
+          <h2 class="text-2xl font-bold font-heading text-gray-800 mb-4">Still Have Questions?</h2>
+          <p class="text-gray-600 mb-6">
+            Our team is here to help! Contact us for personalized answers to your dental care questions.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a 
+              href="/contact" 
+              class="inline-flex items-center px-6 py-3 bg-primary-600 text-white font-medium rounded-md hover:bg-primary-700 transition-colors duration-200"
+            >
+              Contact Us
+            </a>
+            <a 
+              href="tel:+17372913927" 
+              class="inline-flex items-center px-6 py-3 border border-primary-600 text-primary-600 font-medium rounded-md hover:bg-primary-50 transition-colors duration-200"
+            >
+              Call Now
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</Layout>
