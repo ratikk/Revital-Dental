@@ -8,6 +8,7 @@ const teamMembers = [
     name: "Dr. Suman Kondragunta",
     title: "Lead Dentist",
     image: TEAM_IMAGES.drSuman,
+    imagePosition: 'top',
     bio: "With over 11 years of full-time dental experience, Dr. Suman Kondragunta (AKA, Dr. K) has dedicated his career to providing exceptional oral healthcare. He earned his Doctor of Dental Surgery from New York University College of Dentistry in 2011. After graduating, he spent years serving underserved communities in New Mexico, honing his skills in restoring beautiful smiles.\n\nNow proudly serving the **Temple** community, Dr. K treats every patient with compassion and a gentle touch. When his family began to expand, he and his wife chose to put down roots here in Texas. They couldn't be happier to call **Central Texas** home.\n\nOutside the office, Dr. K is a true foodie who loves meditation and authentic Tex-Mex tacos. He enjoys hiking and biking through local trails with his wife and their two children, Arnav and Avan. An artist at heart, he is also passionate about wood carving, sculpture, and painting.",
     credentials: [
       "DDS - New York University College of Dentistry, 2011",
@@ -19,7 +20,8 @@ const teamMembers = [
     // ✅ UPDATED: Dr. Sangeeta Gantayat (Dr. G)
     name: "Dr. Sangeeta Gantayat",
     title: "Dentist",
-    image: TEAM_IMAGES.drSangeeta, // Uses the new image from utils/images.ts
+    image: TEAM_IMAGES.drSangeeta, // newer profile shot (portrait, sign at top)
+    imagePosition: 'center 72%',
     bio: "Dr. Sangeeta Gantayat DMD (Dr. G) brings a brilliant mix of professional expertise and personal touch to her dental practice. She takes great pride in brightening up the city one smile at a time, providing her patients with top-notch dental care. Known for her compassion and patient-focused approach, she embodies the perfect blend of clinical proficiency and a caring demeanor, making dental visits a comforting and stress-free experience.\n\n**Why she became a dentist:** She comes from a family of doctors and dentists and always wanted to be in the profession to help people. The fact that dentistry helps her balance her professional and family goals attracted her to this career path. She completed her dental school at GDCH Ahmedabad, India in 2006 and then moved to the US, accomplishing her Doctor of Dental Medicine degree from Rutgers University, New Jersey in 2013.\n\nBut behind this successful dentist, there's a story of a woman who is deeply committed to her family. At home, she is the affectionate mother of two lively young daughters, aged six and three. Their endless energy and ceaseless curiosity bring a vibrant spark to her day. Alongside these roles, she is also a loving wife to her dashing husband, an IT professional who supports their shared dedication to family.\n\nJuggling her career and family life with grace, Dr. G believes her experiences as a mother and wife enrich her dental practice. They underscore the importance of patience, clear communication, and unconditional care — values that she brings into every patient interaction. In her free time, Dr. G indulges in her passion for gardening and cooking to rejuvenate.\n\nDr. G extends a warm invitation to join her dental family, where you will receive top-tier dental care coupled with a personal touch. In her capable hands, you can expect nothing less than a comfortable, rewarding experience.",
     credentials: [
       "DMD - Rutgers University, New Jersey, 2013",
@@ -81,7 +83,8 @@ const teamMembers = [
                 <img
                   src={member.image.src}
                   alt={`${member.name} - Dentist in Temple TX`}
-                  class="absolute inset-0 w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700"
+                  style={`object-position: ${member.imagePosition ?? 'top'}`}
+                  class="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                   width={member.image.width}
                   height={member.image.height}
                 />
