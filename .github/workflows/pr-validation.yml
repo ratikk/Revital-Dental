@@ -77,12 +77,10 @@ jobs:
   # Guards derived from the August 2026 marketing/technical audit. Each pattern
   # was a real defect in this codebase.
   #
-  # ADVISORY FOR NOW: several still exist on master (fake testimonials, stray
-  # (737) numbers, the Belton [Nearby Landmark] placeholder). Once that cleanup
-  # ships, delete `continue-on-error` so these start blocking merges.
+  # BLOCKING since Aug 2026 — the defects these guard against have been
+  # cleaned up; a match now means one is being reintroduced.
   audit-guards:
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
 
