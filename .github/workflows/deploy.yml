@@ -72,6 +72,7 @@ jobs:
           PUBLIC_LAMBDA_ENDPOINT: ${{ vars.PUBLIC_LAMBDA_ENDPOINT }}
           PUBLIC_GOOGLE_REVIEWS_ENDPOINT: ${{ vars.PUBLIC_GOOGLE_REVIEWS_ENDPOINT }}
           PUBLIC_GOOGLE_ADS_ID: ${{ vars.PUBLIC_GOOGLE_ADS_ID }}
+          PUBLIC_GA4_ID: ${{ vars.PUBLIC_GA4_ID }}
         run: npm run build
 
       - name: Stamp build version (served at /version.json)

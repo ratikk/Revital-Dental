@@ -9,7 +9,21 @@ export interface Props {
 }
 
 const { items } = Astro.props;
+
+const site = 'https://revitaldentaltempletx.com';
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": items.map((item, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "name": item.label,
+    ...(item.href ? { "item": site + item.href } : {}),
+  })),
+};
 ---
+
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
 <div class="bg-gray-100 py-3 border-b border-gray-200">
   <div class="container mx-auto px-4">

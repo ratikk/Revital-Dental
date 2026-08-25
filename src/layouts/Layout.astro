@@ -40,6 +40,7 @@ const {
 
 // Get IDs from .env
 const googleAdsId = import.meta.env.PUBLIC_GOOGLE_ADS_ID;
+const ga4Id = import.meta.env.PUBLIC_GA4_ID;
 const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 
 const siteUrl = Astro.site ? Astro.site.toString().slice(0, -1) : "https://revitaldentaltempletx.com";
@@ -243,6 +244,41 @@ const dentistSchema = {
         const checkInterval = setInterval(() => {
           if (typeof grecaptcha !== 'undefined') { clearInterval(checkInterval); onRecaptchaReady(); }
         }, 500);
+      </script>
+    )}
+  
+    {ga4Id && (
+      <script is:inline define:vars={{ ga4Id }}>
+        // GA4 web analytics + conversion events. Loads only when PUBLIC_GA4_ID
+        // is set (an Actions repository variable). Event map is documented in
+        // the Aug 2026 site review: phone_click, appointment_click,
+        // directions_click, sticky_bar_click.
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', ga4Id, { anonymize_ip: true });
+        var s = document.createElement('script');
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ga4Id;
+        s.async = true;
+        document.head.appendChild(s);
+
+        document.addEventListener('click', function (e) {
+          var a = e.target && e.target.closest ? e.target.closest('a') : null;
+          if (!a) return;
+          var href = a.getAttribute('href') || '';
+          var zone = (a.closest('[data-cta-zone]') || {}).getAttribute
+            ? (a.closest('[data-cta-zone]').getAttribute('data-cta-zone') || 'page')
+            : 'page';
+          if (href.indexOf('tel:') === 0) {
+            gtag('event', 'phone_click', { cta_zone: zone });
+            if (zone === 'sticky') gtag('event', 'sticky_bar_click', { action: 'call' });
+          } else if (href.indexOf('book.modento.io') !== -1) {
+            gtag('event', 'appointment_click', { cta_zone: zone });
+            if (zone === 'sticky') gtag('event', 'sticky_bar_click', { action: 'book' });
+          } else if (href.indexOf('google.com/maps') !== -1) {
+            gtag('event', 'directions_click', { cta_zone: zone });
+          }
+        }, { capture: true, passive: true });
       </script>
     )}
   </body>
