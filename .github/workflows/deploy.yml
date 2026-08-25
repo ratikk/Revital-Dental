@@ -72,6 +72,7 @@ jobs:
           PUBLIC_LAMBDA_ENDPOINT: ${{ vars.PUBLIC_LAMBDA_ENDPOINT }}
           PUBLIC_GOOGLE_REVIEWS_ENDPOINT: ${{ vars.PUBLIC_GOOGLE_REVIEWS_ENDPOINT }}
           PUBLIC_GOOGLE_ADS_ID: ${{ vars.PUBLIC_GOOGLE_ADS_ID }}
+          PUBLIC_GA4_ID: ${{ vars.PUBLIC_GA4_ID }}
         run: npm run build
 
       - name: Stamp build version (served at /version.json)
@@ -155,7 +156,11 @@ jobs:
             --cache-control "public, max-age=31536000, immutable"
           # Pass 2: HTML + version stamp, never cached
           aws s3 sync dist/ "s3://$DEV_BUCKET/" \
-            --exclude "*" --include "*.html" --include "version.json" \
+            --exclude "*" --include "*.html" \
+            --cache-control "public, max-age=0, s-maxage=600"
+          # version.json is the deploy-verification probe - must never be cached
+          aws s3 sync dist/ "s3://$DEV_BUCKET/" \
+            --exclude "*" --include "version.json" \
             --cache-control "no-cache, no-store, must-revalidate"
 
       - name: Invalidate dev CloudFront
@@ -231,7 +236,11 @@ jobs:
             --exclude "*.html" --exclude "version.json" \
             --cache-control "public, max-age=31536000, immutable" --no-progress
           aws s3 sync dist/ "s3://$PROD_BUCKET/" \
-            --exclude "*" --include "*.html" --include "version.json" \
+            --exclude "*" --include "*.html" \
+            --cache-control "public, max-age=0, s-maxage=600"
+          # version.json is the deploy-verification probe - must never be cached
+          aws s3 sync dist/ "s3://$PROD_BUCKET/" \
+            --exclude "*" --include "version.json" \
             --cache-control "no-cache, no-store, must-revalidate" --no-progress
 
       - name: Validate manifest against bucket, then clean up stale objects
