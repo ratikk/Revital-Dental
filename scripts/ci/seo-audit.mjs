@@ -66,8 +66,10 @@ const tagText = (h, tag) => {
 const metaContent = (h, name) => {
   const m = h.match(new RegExp(`<meta[^>]+name=["']${name}["'][^>]*>`, 'i'));
   if (!m) return null;
-  const c = m[0].match(/content=["']([^"']*)["']/i);
-  return c ? decodeHtmlEntities(c[1]) : null;
+  // Match to the SAME quote that opened the attribute - a value like
+  // "don't" must not be truncated at the apostrophe.
+  const c = m[0].match(/content=("([^"]*)"|'([^']*)')/i);
+  return c ? decodeHtmlEntities(c[2] ?? c[3]) : null;
 };
 const linkHref = (h, rel) => {
   const m = h.match(new RegExp(`<link[^>]+rel=["']${rel}["'][^>]*>`, 'i'));
@@ -191,8 +193,9 @@ export function auditPage(html, route) {
   const desc = metaContent(html, 'description');
   if (!desc) warnings.push('missing meta description');
   else {
-    if (desc.length > LIMITS.descMax) warnings.push(`description ${desc.length} chars (max ${LIMITS.descMax})`);
-    if (desc.length < LIMITS.descMin) warnings.push(`description ${desc.length} chars (min ${LIMITS.descMin})`);
+    // Promoted from warnings 2026-08-25 - the pre-existing debt was cleared.
+    if (desc.length > LIMITS.descMax) errors.push(`description ${desc.length} chars (max ${LIMITS.descMax})`);
+    if (desc.length < LIMITS.descMin) errors.push(`description ${desc.length} chars (min ${LIMITS.descMin})`);
     // Sentence-fragment detector: ". lowercase" — the Buda description defect.
     const frag = desc.match(/\.\s+[a-z]/);
     if (frag) warnings.push(`description has a lowercase sentence start: "...${desc.slice(Math.max(0, desc.indexOf(frag[0]) - 25), desc.indexOf(frag[0]) + 35)}..."`);

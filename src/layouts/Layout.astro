@@ -52,10 +52,28 @@ const ogImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
 // enforces this.
 const pageTitle = title;
 
+// Opening hours derived from the single displayed source of truth
+// (clinicInfo.hours) so schema can never contradict the visible site.
+// "By Appointment Only" / "Closed" days are omitted rather than guessed.
+const openingHours = Object.entries(clinicInfo.hours)
+  .map(([day, val]) => {
+    const m = String(val).match(/(\d{1,2}):(\d{2})\s*(AM|PM)\s*[\u2013-]\s*(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+    if (!m) return null;
+    const to24 = (h, min, ap) => String((h % 12) + (/pm/i.test(ap) ? 12 : 0)).padStart(2, '0') + ':' + min;
+    return {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": day,
+      "opens": to24(+m[1], m[2], m[3]),
+      "closes": to24(+m[4], m[5], m[6]),
+    };
+  })
+  .filter(Boolean);
+
 const dentistSchema = {
   "@context": "https://schema.org",
   "@type": "Dentist",
-  "@id": siteUrl,
+  "@id": `${siteUrl}#dentist`,
+  "hasMap": clinicInfo.mapLink,
   "name": clinicInfo.name,
   "image": `${siteUrl}/images/logo.png`,
   "url": siteUrl,
@@ -74,10 +92,7 @@ const dentistSchema = {
     "latitude": clinicInfo.coordinates.latitude,
     "longitude": clinicInfo.coordinates.longitude
   },
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Wednesday", "Thursday"],
+  "openingHoursSpecification": openingHours,
       "opens": "09:00",
       "closes": "17:00"
     },
