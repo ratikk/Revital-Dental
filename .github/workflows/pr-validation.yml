@@ -1,0 +1,124 @@
+name: pr-validation
+
+# Gate 2 — code validation. Runs on every pull request targeting main.
+# No AWS credentials are used or needed in this workflow.
+#
+# Blocking checks: install (lock file), production build, secret scan.
+# Advisory (non-blocking, reported in the job summary) until the pre-existing
+# issues in BACKLOG.md are cleared: astro check, link check, npm audit.
+# Promote them to blocking by removing `continue-on-error`.
+
+on:
+  pull_request:
+    branches: [main, master]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history for secret scanning
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies (lock file)
+        run: npm ci
+
+      - name: Astro type check (advisory)
+        continue-on-error: true
+        run: |
+          npm install --no-save @astrojs/check typescript
+          npx astro check
+
+      - name: Production build
+        env:
+          PUBLIC_RECAPTCHA_SITE_KEY: ${{ vars.PUBLIC_RECAPTCHA_SITE_KEY }}
+          PUBLIC_LAMBDA_ENDPOINT: ${{ vars.PUBLIC_LAMBDA_ENDPOINT }}
+          PUBLIC_GOOGLE_REVIEWS_ENDPOINT: ${{ vars.PUBLIC_GOOGLE_REVIEWS_ENDPOINT }}
+          PUBLIC_GOOGLE_ADS_ID: ${{ vars.PUBLIC_GOOGLE_ADS_ID }}
+        run: npm run build
+
+      - name: SEO audit unit tests (blocking)
+        run: node scripts/ci/seo-audit.test.mjs
+
+      - name: SEO audit of built output (blocking on errors)
+        run: node scripts/ci/seo-audit.mjs dist
+
+      - name: Generate artifact manifest (validation)
+        run: node scripts/ci/make-manifest.mjs dist manifest.json && head -c 400 manifest.json
+
+      - name: Internal link check (advisory)
+        continue-on-error: true
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --offline --include-fragments --no-progress "dist/**/*.html"
+          fail: true
+
+      - name: Dependency vulnerability audit (advisory)
+        continue-on-error: true
+        run: npm audit --audit-level=high
+
+      - name: Secret scan (blocking)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Guards derived from the August 2026 marketing/technical audit. Each pattern
+  # was a real defect in this codebase.
+  #
+  # ADVISORY FOR NOW: several still exist on master (fake testimonials, stray
+  # (737) numbers, the Belton [Nearby Landmark] placeholder). Once that cleanup
+  # ships, delete `continue-on-error` so these start blocking merges.
+  audit-guards:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Content guards
+        run: |
+          fail=0
+
+          # 1. Fabricated review data must never (re)enter the schema.
+          if grep -rq "aggregateRating" src/; then
+            echo "::error::aggregateRating found in source. Ratings must come from real reviews."
+            fail=1
+          fi
+
+          # 2. Only Temple (254) numbers belong in this codebase.
+          strays=$(grep -rhoE '\(?(737|347)\)?[ .-]?[0-9]{3}[ .-]?[0-9]{4}' src/ public/ 2>/dev/null | sort -u || true)
+          if [ -n "$strays" ]; then
+            echo "::error::Non-Temple phone number(s) found:"; echo "$strays"; fail=1
+          fi
+
+          # 3. Austin-era domains must not reappear.
+          if grep -rqE "revitaldentalaustintx\.com|lilacdentalaustintx\.com" src/ public/ astro.config.mjs; then
+            echo "::error::Austin-era domain reference found."; fail=1
+          fi
+
+          # 4. Unfilled template placeholders.
+          if grep -rqE '\[(Nearby Landmark|TODO|PLACEHOLDER)' src/; then
+            echo "::error::Unfilled template placeholder found:"
+            grep -rnE '\[(Nearby Landmark|TODO|PLACEHOLDER)' src/ || true
+            fail=1
+          fi
+
+          # 5. Invented patient testimonials (see Testimonials.astro history).
+          if grep -rqE "Jennifer Davis|Michael Thompson|Sarah Rodriguez" src/; then
+            echo "::error::Known fabricated testimonial names present in source."
+            fail=1
+          fi
+
+          [ "$fail" -eq 1 ] && exit 1
+          echo "All content guards passed."
