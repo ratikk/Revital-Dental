@@ -39,7 +39,8 @@ Already existing (verified 2026-08-24):
 | Production bucket | `revitaldentaltempletx-website-prod` (us-east-1, versioning ON) |
 | Production distribution | `E2T5A2K4W8YWK4` → revitaldentaltempletx.com |
 
-To create (mirror NextGen's — see its `bootstrap/` for the role Terraform):
+To create — all defined as Terraform in this repo (see `infra/README.md`
+for the apply order):
 
 | Resource | Value |
 |---|---|
