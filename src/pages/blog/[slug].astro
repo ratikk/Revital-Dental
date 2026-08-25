@@ -30,7 +30,7 @@ const isAstroImage = post.image && typeof post.image === 'object' && 'src' in po
 const ogImage = isAstroImage
   // @ts-ignore
   ? new URL(post.image.src, Astro.site || 'https://revitaldentaltempletx.com').toString()
-  : new URL("/images/hero/lilac-dental-og-image.jpg", Astro.site || 'https://revitaldentaltempletx.com').toString();
+  : new URL("/images/logo.png", Astro.site || 'https://revitaldentaltempletx.com').toString();
 ---
 
 <Layout

@@ -92,6 +92,27 @@ const Heading = headingTag;
             <p class="text-lg md:text-xl text-gray-600">{subtitle || "Your trusted partner in dental care"}</p>
           </div>
         )}
+        {/* Primary CTA pair: Book Online is the new-patient action; Call is
+            the phone-first alternative. The sticky mobile bar (StickyActions)
+            hides while this pair is on screen. */}
+        {isHomePage && (
+          <div data-cta-zone="hero" class="flex flex-col sm:flex-row sm:justify-center items-stretch gap-3 mt-6">
+            <a
+              href={clinicInfo.booking.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center justify-center min-h-[52px] px-8 rounded-md bg-primary-600 text-white font-semibold hover:bg-primary-700 transition-colors w-full sm:w-auto"
+            >
+              Book Online
+            </a>
+            <a
+              href={`tel:+1${clinicInfo.phone.replace(/\D/g, '').slice(-10)}`}
+              class="flex items-center justify-center min-h-[52px] px-8 rounded-md border border-primary-600 text-primary-700 font-semibold hover:bg-primary-50 transition-colors w-full sm:w-auto"
+            >
+              Call {clinicInfo.displayPhone}
+            </a>
+          </div>
+        )}
         {!isHomePage && title && (
           <div class="mt-6 sm:mt-8 text-center">
             <Heading class="text-3xl md:text-4xl font-bold font-heading mb-3 sm:mb-4 text-gray-800">{title}</Heading>

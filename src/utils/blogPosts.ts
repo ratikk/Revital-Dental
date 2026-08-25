@@ -299,7 +299,7 @@ export const blogPosts: BlogPost[] = [
   // ------------------------------------------------------------------
   // Pre-existing posts (in this repo since Dec 2025; not on the live
   // site's current blog index — republished intentionally).
-  // SEO titles below were corrected from Lilac Dental / Austin residue;
+  // SEO titles below were corrected from earlier template residue;
   // bylines reassigned from a non-Revital dentist to Dr. Kondragunta.
   // ------------------------------------------------------------------
   {

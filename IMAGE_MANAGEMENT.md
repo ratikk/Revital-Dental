@@ -1,4 +1,4 @@
-# Image Management Guide for Lilac Dental Website
+# Image Management Guide for Revital Dental Website
 
 ## Directory Structure
 
@@ -13,7 +13,7 @@ public/images/
 │   └── dental-3.jpg
 ├── about/               # Team member photos
 │   ├── dr-suman.jpg
-│   └── dr-kiranmayee.jpg
+│   └── dr-sangeeta.jpg
 └── gallery/            # Before/After images for smile gallery
     ├── case1-before.jpg
     ├── case1-after.jpg
@@ -43,7 +43,7 @@ public/images/
 - Directory: `public/images/about/`
 - Files:
   - dr-suman.jpg
-  - dr-kiranmayee.jpg
+  - dr-sangeeta.jpg
 - Recommended size: 800x1000px
 - Format: JPG
 - Used in: About page

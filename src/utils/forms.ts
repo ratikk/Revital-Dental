@@ -43,8 +43,8 @@ export async function submitForm(data: FormData) {
       smsConsent: data.smsConsent,
       
       // ✅ FAIL-SAFE: Send token as BOTH names so either Lambda version works
-      recaptchaToken: token, // New Lilac Style
-      captchaToken: token,   // Old NextGen/Revital Style
+      recaptchaToken: token, // current backend field name
+      captchaToken: token,   // legacy backend field name (kept for compatibility)
     };
 
     console.log("Submitting to Revital Backend:", LAMBDA_ENDPOINT);
