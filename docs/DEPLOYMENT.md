@@ -8,7 +8,7 @@ change here.
 ## The flow
 
 ```
-push to master
+push to dev
   └─ build       clean production build, immutable site.tar.gz + sha256
   │              + manifest.json + build-info.json. No AWS credentials.
   └─ staging     GitHub environment `dev`: store the artifact in the releases
@@ -18,6 +18,8 @@ push to master
                  promote the EXACT artifact tested in staging. Never rebuilds.
                  Manifest-validated sync, targeted invalidation, smoke tests,
                  /version.json verification, release pointer recorded.
+  └─ sync-main   fast-forward `main` to the deployed commit, so main always
+                 mirrors production.
 ```
 
 Rollback: Actions → **rollback** → run with empty target (= previous release),
@@ -57,18 +59,21 @@ GitHub setup (Settings → Environments / Variables):
   (reCAPTCHA keys are domain-bound — add `dev.revitaldentaltempletx.com` to the
   key or issue a dev key, or forms will silently fail on dev.)
 
-## Branch note
+## Branch model
 
-The production branch of this repository is **`master`** (`main` and `dev` are
-stale — last commits Nov 2025). The deploy workflow therefore triggers on
-`master`. Recommended cleanup: fast-forward `main` to `master`, make `main` the
-default branch, flip the workflow trigger to `[main]`, and archive the stale
-branches — that restores parity with NextGen's layout.
+- **`dev`** — the working branch. All changes (direct pushes or merged PRs)
+  land here; every push deploys to the dev site automatically.
+- **`main`** — a record of production. Never push it by hand; the deploy
+  workflow's `sync-main` job fast-forwards it to each commit that reaches
+  production after approval.
+- `master` was retired in Aug 2026 (its history is fully contained in the
+  branches above).
 
-Also note the sibling repository `ratikk/Revital-Dental` (capital R) is an
-**abandoned fork** of this codebase, last commit Nov 2025, whose `buildspec.yml`
-targets a bucket and distribution that no longer serve the site. Archive it to
-stop it being mistaken for the source of truth.
+Recommended repository settings: default branch `main`; branch protection on
+`main` (no direct pushes except the Actions bot); PRs target `dev`.
+
+Also note the GitHub name variants `revital-dental` / `Revital-Dental` are the
+SAME repository (GitHub redirects between them) — not a fork.
 
 ## Verifying repo ↔ production drift
 

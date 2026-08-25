@@ -3,6 +3,12 @@ name: deploy
 # Build-once / promote-once pipeline for the Revital Dental site.
 # Ported from ratikk/NextGen-Dental deploy.yml — keep the two in sync.
 #
+# Branch model:
+#   dev  — the working branch. Every push builds once and deploys that exact
+#          artifact to the dev site for review.
+#   main — a RECORD of production. Never pushed by hand; the sync-main job
+#          fast-forwards it to each commit that reaches production.
+#
 #   push to main
 #     └─ build       — clean build, immutable artifact + sha256 + manifest.
 #                      No AWS credentials.
@@ -19,7 +25,7 @@ name: deploy
 on:
   workflow_dispatch:
   push:
-    branches: [master]   # NOTE: this repo's production branch. Flip to [main] if branches are consolidated.
+    branches: [dev]
     paths-ignore:
       - "infra/**"
       - "bootstrap/**"
@@ -281,3 +287,25 @@ jobs:
           echo "### PRODUCTION DEPLOY FAILED" >> "$GITHUB_STEP_SUMMARY"
           echo "Run the 'rollback' workflow (Actions tab) to restore the previous release: ${{ steps.prev.outputs.prev_sha }}" >> "$GITHUB_STEP_SUMMARY"
           echo "If this was the first pipeline release, roll back to 'initial' (pre-CI/CD backup)." >> "$GITHUB_STEP_SUMMARY"
+
+  # ------------------------------------------------------------ record -----
+  # Keeps `main` an accurate record of what is in production. Fast-forward
+  # only: if main has diverged (someone pushed to it by hand), this warns
+  # instead of overwriting.
+  sync-main:
+    needs: production
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fast-forward main to the deployed commit
+        run: |
+          if git push origin "${GITHUB_SHA}:refs/heads/main"; then
+            echo "main now records ${GITHUB_SHA:0:7} as production."
+          else
+            echo "::warning::Could not fast-forward main — it has diverged. Production IS deployed; reconcile main manually."
+          fi
