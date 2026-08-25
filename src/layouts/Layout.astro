@@ -28,13 +28,14 @@ export interface Props {
 
 const {
   title,
-  description = "Lilac Dental provides exceptional family and cosmetic dentistry in Austin, TX. Our experienced team offers exams, teeth cleaning, implants, and Invisalign with a gentle touch.",
-  image = "/images/og/lilac-dental-og.jpg",
+  description = "Revital Dental provides exceptional family and cosmetic dentistry in Temple, TX. Exams, cleanings, implants, and Invisalign with a gentle touch.",
+  image = "/images/logo.png",
   canonical = Astro.url.pathname,
   type = 'website',
   publishDate,
   modifiedDate,
-  serviceSchema
+  serviceSchema,
+  noindex = false
 } = Astro.props;
 
 // Get IDs from .env
@@ -45,9 +46,11 @@ const siteUrl = Astro.site ? Astro.site.toString().slice(0, -1) : "https://revit
 const fullCanonical = `${siteUrl}${canonical}`;
 const ogImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
 
-const pageTitle = title === `Welcome to ${clinicInfo.name}`
-  ? `${clinicInfo.name} | Top-Rated Dentist in Austin, TX | Family & Cosmetic Dentistry`
-  : `${title} | ${clinicInfo.name} Austin, TX`;
+// Pages own their complete <title>. No global suffix is appended - the old
+// template suffix double-branded every page and pushed all titles past 60
+// chars (and said "Austin"). Keep titles <= 60 chars; the CI SEO audit
+// enforces this.
+const pageTitle = title;
 
 const dentistSchema = {
   "@context": "https://schema.org",
@@ -112,8 +115,9 @@ const dentistSchema = {
     <title>{pageTitle}</title>
     <meta name="title" content={pageTitle} />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="author" content={clinicInfo.name} />
-    <meta name="keywords" content="dentist, dental care, Austin dentist, teeth cleaning, dental implants, cosmetic dentistry, family dentist, emergency dental care, Austin TX" />
+    <meta name="keywords" content="dentist, dental care, Temple TX dentist, teeth cleaning, dental implants, cosmetic dentistry, family dentist, emergency dental care" />
 
     <link rel="canonical" href={fullCanonical} />
 
