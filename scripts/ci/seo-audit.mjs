@@ -105,8 +105,10 @@ export function findMarkdownArtifacts(html) {
 export function imagesMissingAlt(html) {
   const imgs = stripComments(html).match(/<img\b[^>]*>/gi) || [];
   return imgs.filter((t) => {
-    const m = t.match(/\balt=["']([^"']*)["']/i);
-    return !m; // alt="" is legitimate for decorative images; a MISSING attribute is not
+    // Accept alt="...", alt='' and the minified bare `alt` (HTML equivalent of
+    // alt="") - Astro's compressHTML collapses empty attributes to bare names.
+    const m = t.match(/(^|\s)alt(=|[\s/>])/i);
+    return !m; // a MISSING attribute is the accessibility failure
   });
 }
 
