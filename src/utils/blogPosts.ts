@@ -14,11 +14,17 @@
 //     are displayed on that page yet. Revisit when the reviews page is rebuilt.
 import { type ImageMetadata } from 'astro';
 
-// Import existing images to use as placeholders for now
+// Generic hero images (placeholders for posts without dedicated photos)
 import dental1 from '../assets/images/hero/dental-1.jpg';
 import dental2 from '../assets/images/hero/dental-2.jpg';
 import dental3 from '../assets/images/hero/dental-3.jpg';
 import dental4 from '../assets/images/hero/dental-4.jpg';
+// Dedicated post images (recovered from S3 version history, Aug 2026)
+import imgChooseDentist from '../assets/images/blog/how-to-choose-good-dentist-temple.webp';
+import imgFloss from '../assets/images/blog/how-to-floss-properly.webp';
+import imgBrushing from '../assets/images/blog/mastering-toothbrushing-technique.webp';
+import imgRootCanalCost from '../assets/images/blog/root-canal-cost-temple.webp';
+import imgBadBreath from '../assets/images/blog/root-of-bad-breath.webp';
 
 export interface BlogPost {
   id: string;
@@ -80,7 +86,7 @@ export const blogPosts: BlogPost[] = [
     date: '2025-12-15',
     author: 'Dr. Gantayat',
     category: 'Oral Health',
-    image: dental2,
+    image: imgBrushing,
     tags: ['Hygiene', 'Tips', 'Preventive'],
     content: `<p>Welcome to our dental blog, where the spotlight is on the basics of dental hygiene. Brushing is the cornerstone of dental well-being, but it is still a difficult task for many people to get exactly right.</p>
 <h2>Why Brushing Matters</h2>
@@ -111,7 +117,7 @@ export const blogPosts: BlogPost[] = [
     date: '2025-12-14',
     author: 'Dr. Gantayat',
     category: 'Oral Health',
-    image: dental3,
+    image: imgFloss,
     tags: ['Hygiene', 'Gum Health', 'Preventive'],
     content: `<p>If you only brush, you are leaving about <strong>40% of your tooth surfaces dirty</strong>. Flossing is the only way to remove plaque from between teeth where a brush simply cannot reach.</p>
 <h2>The "C-Shape" Technique</h2>
@@ -140,7 +146,7 @@ export const blogPosts: BlogPost[] = [
     date: '2025-12-12',
     author: 'Dr. Gantayat',
     category: 'Patient Guide',
-    image: dental4,
+    image: imgChooseDentist,
     tags: ['Patient Guide', 'Temple TX'],
     content: `<p>With so many dental offices in Temple and Belton, how do you tell if a dentist is actually "good"? It is about more than just a nice waiting room.</p>
 <p>At Revital Dental, we believe trust is earned. Here are the 5 specific things you should look for when choosing your dental home.</p>
@@ -216,7 +222,7 @@ export const blogPosts: BlogPost[] = [
     date: '2025-12-07',
     author: 'Dr. Gantayat',
     category: 'Restorative Care',
-    image: dental3,
+    image: imgRootCanalCost,
     tags: ['Root Canal', 'Costs', 'Temple TX'],
     content: `<p>One of the most common questions we hear at Revital Dental is: <strong>"Is a root canal expensive?"</strong></p>
 <p>If you are experiencing the throbbing pain of an infected tooth, cost should be the last thing on your mind—but we understand that for families in <strong>Temple (76502)</strong>, budget is a reality.</p>
@@ -291,7 +297,7 @@ export const blogPosts: BlogPost[] = [
     date: '2025-10-25',
     author: 'Dr. Gantayat',
     category: 'Oral Health',
-    image: dental3,
+    image: imgBadBreath,
     tags: ['Oral Health', 'Halitosis'],
     content: `<p>Chronic bad breath (halitosis) can be embarrassing. It is often caused by bacteria hiding on the tongue or gum disease. Regular cleanings at our Temple office can help remove the bacteria your toothbrush can't reach.</p>`
   },

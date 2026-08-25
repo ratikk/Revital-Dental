@@ -11,7 +11,9 @@ import dental6 from '../assets/images/hero/dental-6.jpg';
 // Team Photos
 import drSuman from '../assets/images/about/dr-suman.jpg';
 // ✅ UPDATED: Import Dr. G's image
-import drSangeeta from '../assets/images/about/dr-sangeeta.jpg'; 
+// Newer profile shot recovered from S3 version history (Aug 2026);
+// the previous portrait remains at ../assets/images/about/dr-sangeeta.jpg
+import drSangeeta from '../assets/images/about/dr-sangeeta-profile.jpg'; 
 
 // Gallery Images
 import whiteningCase1Before from '../assets/images/gallery/whitening-case1-before.jpg';
