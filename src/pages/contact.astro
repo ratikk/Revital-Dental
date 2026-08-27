@@ -15,10 +15,10 @@ const metaDescription = `Get in touch with ${clinicInfo.name} for appointments, 
 // Safety check: Ensure we have a phone number to display
 const displayPhone = clinicInfo.displayPhone || clinicInfo.phone;
 
-// Online form submissions are intentionally DISABLED (owner decision,
-// Aug 2026): patients should call or book online instead. Flip to true to
-// restore the message form - markup and handlers are kept intact below.
-const SHOW_CONTACT_FORM = false;
+// Contact form enabled (owner decision, Aug 2026 - restored after a brief
+// period disabled). Set false to hide it again; the Call/Book card renders
+// in its place.
+const SHOW_CONTACT_FORM = true;
 ---
 
 <Layout
@@ -100,15 +100,6 @@ const SHOW_CONTACT_FORM = false;
                     class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 bg-gray-50"
                   />
                 </div>
-                <div>
-                  <label for="dob" class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
-                  <input
-                    type="date"
-                    id="dob"
-                    name="dob"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 bg-gray-50"
-                  />
-                </div>
               </div>
 
               <div>
@@ -138,13 +129,19 @@ const SHOW_CONTACT_FORM = false;
                   type="checkbox"
                   id="consent"
                   name="smsConsent"
-                  required
                   class="mt-1 h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                 />
                 <label for="consent" class="ml-2 block text-sm text-gray-600">
-                  By checking this box you will be agreeing to receive text messages from {clinicInfo.name}*
+                  Optional: check this box to agree to receive text messages from {clinicInfo.name}
                 </label>
               </div>
+
+              <p class="text-xs text-gray-500">
+                Please don't include medical details or health history in this
+                form — we'll collect anything needed securely at your visit.
+                For urgent dental problems, call us at
+                <a href="tel:+12542275777" class="text-primary-600 font-medium">(254) 227-5777</a>.
+              </p>
 
               <Button type="submit" variant="primary" class="w-full">
                 Contact Us
@@ -320,7 +317,6 @@ const SHOW_CONTACT_FORM = false;
         lastName: formData.get('lastName') as string,
         phone: formData.get('phone') as string,
         email: formData.get('email') as string,
-        dob: formData.get('dob') as string,
         message: formData.get('message') as string,
         smsConsent: formData.get('smsConsent') === 'on',
         formType: 'contact' as const,
