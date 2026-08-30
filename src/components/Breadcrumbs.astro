@@ -11,10 +11,17 @@ export interface Props {
 const { items } = Astro.props;
 
 const site = 'https://revitaldentaltempletx.com';
+// Google's BreadcrumbList rules: every element MUST carry `item` except the
+// final one (the current page). Unlinked middle crumbs (e.g. a "Locations"
+// grouping with no index page) stay visible on the page but are excluded
+// from the schema, and positions are renumbered over what remains.
+const schemaItems = items.filter(
+  (item, i) => (item.href && item.href !== '#') || i === items.length - 1
+);
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "itemListElement": items.map((item, i) => ({
+  "itemListElement": schemaItems.map((item, i) => ({
     "@type": "ListItem",
     "position": i + 1,
     "name": item.label,
