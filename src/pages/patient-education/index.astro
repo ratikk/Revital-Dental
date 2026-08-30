@@ -1,0 +1,180 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Button from '../../components/Button.astro';
+import { clinicInfo } from '../../utils/clinicInfo';
+
+// Hub page for the education library. Every guide below breadcrumbs back to
+// /patient-education — this page is that target (it was a 404 before).
+const sections = [
+  {
+    title: 'Treatment Guides',
+    description: 'What to expect before, during, and after common procedures.',
+    items: [
+      {
+        name: 'Dental Implants Guide',
+        href: '/patient-education/dental-implants-guide',
+        blurb: 'Benefits, procedure steps, and recovery for dental implants.',
+      },
+      {
+        name: 'Root Canal Treatment Guide',
+        href: '/patient-education/root-canal-guide',
+        blurb: 'What a root canal involves and how recovery really feels.',
+      },
+      {
+        name: 'Orthodontics Guide',
+        href: '/patient-education/orthodontics-guide',
+        blurb: 'Braces and clear aligners compared, for kids and adults.',
+      },
+    ],
+  },
+  {
+    title: 'Healthy Habits & Prevention',
+    description: 'Everyday care that keeps small problems from becoming big ones.',
+    items: [
+      {
+        name: 'Oral Hygiene Basics',
+        href: '/patient-education/oral-hygiene-basics',
+        blurb: 'Brushing technique, flossing tips, and daily routines.',
+      },
+      {
+        name: 'Understanding Tooth Decay',
+        href: '/patient-education/tooth-decay',
+        blurb: 'How cavities form, and how to prevent and treat them.',
+      },
+      {
+        name: 'Understanding Gum Disease',
+        href: '/patient-education/gum-disease',
+        blurb: 'Causes, warning signs, and treatment of periodontal disease.',
+      },
+    ],
+  },
+  {
+    title: 'Patient Resources',
+    description: 'Quick answers and references for your visit.',
+    items: [
+      {
+        name: 'Frequently Asked Questions',
+        href: '/patient-education/faq',
+        blurb: 'Common questions about procedures, insurance, and emergencies.',
+      },
+      {
+        name: 'Dental Dictionary',
+        href: '/patient-education/dental-dictionary',
+        blurb: 'Plain-English definitions of the dental terms you’ll hear.',
+      },
+      {
+        name: 'Before & After Gallery',
+        href: '/patient-education/before-after',
+        blurb: 'Real patient transformations from our Temple office.',
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Patient Education & Dental Guides | Revital Dental"
+  description="Free dental guides from Revital Dental in Temple, TX — implants, root canals, gum disease, oral hygiene, FAQs, and more. Call (254) 227-5777."
+>
+  <!-- Slim header, matching /services -->
+  <div class="bg-primary-900 text-white pt-32 pb-16 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white" />
+      </svg>
+    </div>
+
+    <div class="container mx-auto px-4 text-center relative z-10">
+      <h1 class="text-4xl md:text-5xl font-bold font-heading mb-4">Patient Education</h1>
+      <p class="text-primary-200 text-lg max-w-2xl mx-auto">
+        Clear, dentist-written guides to help you make confident decisions about your care.
+      </p>
+    </div>
+  </div>
+
+  <!-- Breadcrumbs -->
+  <div class="bg-gray-50 border-b border-gray-200">
+    <div class="container mx-auto px-4 py-3">
+      <nav class="flex text-sm text-gray-500" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-2">
+          <li><a href="/" class="hover:text-primary-600">Home</a></li>
+          <li><span class="text-gray-400">/</span></li>
+          <li class="text-gray-900 font-medium" aria-current="page">Patient Education</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <div class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+
+      {sections.map(section => (
+        <section class="mb-16" data-aos="fade-up">
+          <div class="max-w-3xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-bold font-heading text-gray-800 mb-4 border-b border-gray-100 pb-2">
+              {section.title}
+            </h2>
+            <p class="text-lg text-gray-600 mb-8">{section.description}</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {section.items.map(item => (
+              <a
+                href={item.href}
+                class="block bg-white rounded-xl border border-gray-200 p-6 shadow-sm hover:shadow-md hover:border-primary-200 transition-all group"
+              >
+                <h3 class="text-lg font-bold font-heading text-gray-800 mb-2 group-hover:text-primary-700 transition-colors">
+                  {item.name}
+                </h3>
+                <p class="text-gray-600 text-sm mb-4">{item.blurb}</p>
+                <span class="inline-flex items-center text-primary-600 font-semibold text-sm">
+                  Read the guide
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      <!-- Blog cross-link -->
+      <section class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+        <p class="text-gray-600">
+          Looking for more? Our <a href="/blog" class="text-primary-600 font-semibold hover:text-primary-800">dental blog</a>
+          covers costs, tips, and what’s new at the practice.
+        </p>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="max-w-3xl mx-auto text-center mt-16" data-aos="fade-up">
+        <div class="bg-primary-50 p-8 rounded-2xl border border-primary-100">
+          <h2 class="text-2xl font-bold font-heading text-gray-800 mb-4">
+            Questions About Your Dental Health?
+          </h2>
+          <p class="text-gray-600 mb-8">
+            Reading is a great start — an exam is better. Our team is happy to answer
+            your questions in person.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <Button
+              href={clinicInfo.booking.url}
+              text="Book Appointment"
+              variant="primary"
+              size="lg"
+              target="_blank"
+              rel="noopener noreferrer"
+            />
+            <Button
+              href="tel:+12542275777"
+              text={`Call ${clinicInfo.phone}`}
+              variant="outline"
+              size="lg"
+            />
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</Layout>
