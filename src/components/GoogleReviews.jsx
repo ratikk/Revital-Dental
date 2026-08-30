@@ -50,11 +50,26 @@ export default function GoogleReviews() {
   if (loading) return (
     <div className="flex flex-col justify-center items-center min-h-[200px]">
       <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-600 mb-4"></div>
-      <p className="text-gray-500 text-sm animate-pulse">Generating AI Summary...</p>
+      <p className="text-gray-500 text-sm animate-pulse">Loading reviews…</p>
     </div>
   );
 
-  if (error) return null;
+  // On any failure, fall back to a working link instead of vanishing.
+  if (error) return (
+    <div className="text-center p-8 bg-gray-50 rounded-lg border border-gray-100">
+      <p className="text-gray-600 mb-4">
+        Our latest patient reviews are on our Google profile.
+      </p>
+      <a
+        href="https://www.google.com/maps/place/Revital+Dental/@31.05756,-97.3760514,17z/data=!3m1!4b1!4m6!3m5!1s0x86456b77cbcefa79:0xcf1db0a8e3bdced7!8m2!3d31.0575554!4d-97.3734765!16s%2Fg%2F11q598fxmn"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center px-6 py-2.5 border-2 border-primary-600 text-primary-600 font-bold rounded-full hover:bg-primary-600 hover:text-white transition-colors duration-300"
+      >
+        Read Our Reviews on Google
+      </a>
+    </div>
+  );
   
   if (!reviews || reviews.length === 0) return (
     <div className="text-center p-8 bg-gray-50 rounded-lg border border-gray-100">

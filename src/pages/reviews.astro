@@ -3,6 +3,11 @@ import Layout from '../layouts/Layout.astro';
 import GoogleReviews from '../components/GoogleReviews';
 import { clinicInfo } from '../utils/clinicInfo';
 
+// The live-reviews widget needs the reviews API. When the endpoint is not
+// configured at build time, render a static Google-profile link instead of
+// shipping a loading spinner that can never resolve.
+const REVIEWS_ENDPOINT = import.meta.env.PUBLIC_GOOGLE_REVIEWS_ENDPOINT;
+
 const pageTitle = "Patient Reviews";
 const pageDescription = `See what our patients are saying about their experience at ${clinicInfo.name}. Read real Google reviews and testimonials from our dental patients in Temple, TX.`;
 ---
@@ -55,7 +60,23 @@ const pageDescription = `See what our patients are saying about their experience
 
       <!-- Google Reviews Component -->
       <section class="mb-16" data-aos="fade-up">
-        <GoogleReviews client:load />
+        {REVIEWS_ENDPOINT ? (
+          <GoogleReviews client:load />
+        ) : (
+          <div class="text-center p-8 bg-gray-50 rounded-lg border border-gray-100 max-w-2xl mx-auto">
+            <p class="text-gray-600 mb-4">
+              Our latest patient reviews are on our Google profile.
+            </p>
+            <a
+              href={clinicInfo.mapLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center px-6 py-2.5 border-2 border-primary-600 text-primary-600 font-bold rounded-full hover:bg-primary-600 hover:text-white transition-colors duration-300"
+            >
+              Read Our Reviews on Google
+            </a>
+          </div>
+        )}
       </section>
 
       <!-- Leave a Review CTA -->
