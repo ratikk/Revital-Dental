@@ -1,7 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { blogPosts } from '../../utils/blogPosts';
+import { blogPosts as allPosts } from '../../utils/blogPosts';
 import type { BlogPost } from '../../utils/blogPosts';
+// Drafts stay out of the listing until published.
+const blogPosts = allPosts.filter(p => !p.draft);
 import { Image } from 'astro:assets';
 import { clinicInfo } from '../../utils/clinicInfo';
 

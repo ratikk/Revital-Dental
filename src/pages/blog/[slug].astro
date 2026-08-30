@@ -8,7 +8,8 @@ import { Image } from 'astro:assets';
 import { HERO_IMAGES } from '../../utils/images'; // Use a generic image for the header background
 
 export async function getStaticPaths() {
-  return blogPosts.map(post => ({
+  // Drafts are kept in the repo but never built (no page, no sitemap entry).
+  return blogPosts.filter(post => !post.draft).map(post => ({
     params: { slug: post.id },
     props: { post }
   }));
@@ -30,12 +31,18 @@ const blogPostingSchema = {
   "headline": post.title,
   "description": pageDescription,
   "datePublished": post.date,
-  "author": { "@type": "Person", "name": post.author },
+  // Team-authored posts credit the practice; a named reviewer is added only
+  // once that clinician has approved the final text.
+  "author": post.author === 'Revital Dental Team'
+    ? { "@id": "https://revitaldentaltempletx.com#dentist" }
+    : { "@type": "Person", "name": post.author },
+  ...(post.reviewedBy ? { "reviewedBy": { "@type": "Person", "name": post.reviewedBy } } : {}),
   "publisher": { "@id": "https://revitaldentaltempletx.com#dentist" },
   "mainEntityOfPage": `https://revitaldentaltempletx.com/blog/${post.id}/`,
 };
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://revitaldentaltempletx.com').toString();
+
 
 // Handle Image Logic
 const isAstroImage = post.image && typeof post.image === 'object' && 'src' in post.image;
@@ -97,7 +104,10 @@ const ogImage = isAstroImage
           </h1>
 
           <div class="text-gray-600 font-medium">
-            By {post.author}
+            {post.author === 'Revital Dental Team' ? 'Written by' : 'By'} {post.author}
+            {post.reviewedBy && (
+              <span class="block text-sm text-gray-500 mt-1">Clinically reviewed by {post.reviewedBy}</span>
+            )}
           </div>
         </header>
 
@@ -127,6 +137,24 @@ const ogImage = isAstroImage
 
         {/* Content Body */}
         <div class="prose prose-lg prose-primary mx-auto text-gray-700" set:html={post.content} />
+
+        {/* FAQ accordion (visible only; no FAQPage JSON-LD — Google retired FAQ rich results in 2026) */}
+        {post.faq && post.faq.length > 0 && (
+          <section class="mt-12" aria-labelledby="faq-heading">
+            <h2 id="faq-heading" class="text-2xl font-bold font-heading text-gray-800 mb-6">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+              {post.faq.map(f => (
+                <details class="group bg-gray-50 border border-gray-100 rounded-xl p-5">
+                  <summary class="cursor-pointer font-semibold text-gray-800 list-none flex justify-between items-center gap-4">
+                    <span>{f.question}</span>
+                    <span class="text-primary-600 transition-transform group-open:rotate-45 text-xl leading-none" aria-hidden="true">+</span>
+                  </summary>
+                  <p class="mt-3 text-gray-600 leading-relaxed">{f.answer}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Tags Footer */}
         {post.tags && (
