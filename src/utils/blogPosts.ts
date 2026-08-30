@@ -67,6 +67,7 @@ export const blogPosts: BlogPost[] = [
     excerpt: 'Severe tooth pain, swelling, or a broken tooth? Learn which symptoms can wait for a regular appointment, which need prompt care, and when to go to the ER instead.',
     date: '2026-08-30',
     author: 'Revital Dental Team',
+    reviewedBy: 'Dr. Sangeeta Gantayat, DMD', // approved 2026-08-30
     category: 'Patient Guide',
     image: dental5,
     tags: ['Emergency', 'Patient Guide', 'Temple TX'],
@@ -166,8 +167,8 @@ export const blogPosts: BlogPost[] = [
     id: 'understanding-dental-insurance-benefits',
     title: 'How to Read Your Dental Insurance (and Stop Leaving Benefits on the Table)',
     seoTitle: 'How to Read Your Dental Insurance Benefits | Temple, TX',
-    seoDescription: 'Annual maximums, deductibles, waiting periods, and the 100-80-50 rule explained in plain English, plus how to use your dental benefits before they expire.',
-    excerpt: 'Annual maximums, deductibles, waiting periods, and the 100-80-50 rule explained in plain English, plus how to use your benefits before they reset on December 31.',
+    seoDescription: 'Annual maximums, deductibles, waiting periods, and the 100-80-50 rule explained in plain English, plus how to use benefits before your plan year resets.',
+    excerpt: 'Annual maximums, deductibles, waiting periods, and the 100-80-50 rule explained in plain English, plus how to use your benefits before your plan year resets.',
     draft: true, // TODO: set to false + real date after doctor review
     date: '2026-08-16',
     author: 'Revital Dental Team',
