@@ -50,7 +50,10 @@ const Heading = headingTag;
             <div class="swiper-wrapper">
               {images.map((image, index) => (
                 <div class="swiper-slide">
-                  <div class="relative pb-[56.25%]"> <!-- 16:9 aspect ratio -->
+                  {/* 16:9, but capped to ~half the viewport so the heading and
+                      the Book/Call CTA pair stay above the fold on laptops and
+                      tablets (object-cover crops the excess). */}
+                  <div class="relative w-full aspect-[16/9] max-h-[52vh] min-h-[220px]">
                     {/* Logic to handle both optimized assets and legacy string paths */}
                     {typeof image === 'string' ? (
                       <img
