@@ -73,7 +73,6 @@ export default function BeforeAfterGallery({ transformations }: Props) {
         <div
           key={index}
           className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden flex flex-col"
-          data-aos="fade-up"
         >
           {/* Card header */}
           <div className="px-6 pt-6 pb-4">
@@ -94,7 +93,7 @@ export default function BeforeAfterGallery({ transformations }: Props) {
               labelClass="bg-white/95 text-gray-900"
               labelSide="left"
               objectPosition={item.objectPosition}
-              eager={index < 3}
+              eager={index < 2}
             />
             <Pane
               image={item.after}
@@ -103,7 +102,7 @@ export default function BeforeAfterGallery({ transformations }: Props) {
               labelClass="bg-green-600 text-white"
               labelSide="right"
               objectPosition={item.objectPosition}
-              eager={index < 3}
+              eager={index < 2}
             />
           </div>
 

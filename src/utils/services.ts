@@ -23,7 +23,7 @@ export const services = {
       },
       {
         name: "Sedation Dentistry",
-        description: "Anxiety-free dental care with Nitrous Oxide (laughing gas) for a relaxing, stress-free experience.",
+        description: "Comfort-focused dental care with Nitrous Oxide (laughing gas) to help you relax during treatment.",
         href: "/services/sedation-dentistry",
         icon: "😴"
       },
@@ -47,7 +47,7 @@ export const services = {
       },
       {
         name: "Teeth Whitening",
-        description: "Brighten your smile by several shades with safe, in-office whitening treatments that deliver immediate results.",
+        description: "Safe, in-office whitening treatments designed to noticeably brighten your smile.",
         href: "/services/teeth-whitening",
         icon: "😁"
       },
@@ -77,7 +77,7 @@ export const services = {
       },
       {
         name: "Dental Implants",
-        description: "Permanently replace missing teeth with secure, natural-looking implants designed to last a lifetime.",
+        description: "Replace missing teeth with secure, natural-looking implants - a durable, long-term option.",
         href: "/services/dental-implants",
         icon: "🦿"
       },
