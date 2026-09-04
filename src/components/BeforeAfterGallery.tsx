@@ -59,7 +59,7 @@ const Pane = ({
       draggable={false}
     />
     <span
-      className={`absolute bottom-3 ${labelSide === 'left' ? 'left-3' : 'right-3'} px-3 py-1 text-[11px] font-bold tracking-widest rounded-full shadow-sm ${labelClass}`}
+      className={`absolute bottom-3 ${labelSide === 'left' ? 'left-3' : 'right-3'} px-3 py-1 text-xs font-bold tracking-widest rounded-full shadow-sm ${labelClass}`}
     >
       {label}
     </span>
@@ -68,7 +68,7 @@ const Pane = ({
 
 export default function BeforeAfterGallery({ transformations }: Props) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
       {transformations.map((item, index) => (
         <div
           key={index}
@@ -76,11 +76,11 @@ export default function BeforeAfterGallery({ transformations }: Props) {
           data-aos="fade-up"
         >
           {/* Card header */}
-          <div className="px-5 pt-5 pb-3">
-            <h3 className="text-lg font-bold font-heading text-gray-900 leading-snug">
+          <div className="px-6 pt-6 pb-4">
+            <h3 className="text-xl md:text-2xl font-bold font-heading text-gray-900 leading-snug">
               {item.title}
             </h3>
-            <span className="inline-block mt-2 px-2.5 py-0.5 bg-primary-50 text-primary-700 text-xs font-semibold rounded-full">
+            <span className="inline-block mt-2 px-3 py-1 bg-primary-50 text-primary-700 text-sm font-semibold rounded-full">
               {item.tag}
             </span>
           </div>
@@ -108,14 +108,14 @@ export default function BeforeAfterGallery({ transformations }: Props) {
           </div>
 
           {/* Explanation + optional treatment link */}
-          <div className="px-5 py-4 flex-1 flex flex-col">
-            <p className="text-sm text-gray-600 leading-relaxed">
+          <div className="px-6 py-5 flex-1 flex flex-col">
+            <p className="text-base text-gray-600 leading-relaxed">
               {item.description}
             </p>
             {item.serviceHref && (
               <a
                 href={item.serviceHref}
-                className="inline-flex items-center gap-1 text-sm text-primary-600 font-semibold hover:text-primary-800 transition-colors mt-auto pt-3"
+                className="inline-flex items-center gap-1 text-base text-primary-600 font-semibold hover:text-primary-800 transition-colors mt-auto pt-3"
               >
                 {item.serviceLabel || 'Learn more'}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3.5 h-3.5" aria-hidden="true">
