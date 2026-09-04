@@ -15,13 +15,17 @@ import drSuman from '../assets/images/about/dr-suman.jpg';
 // the previous portrait remains at ../assets/images/about/dr-sangeeta.jpg
 import drSangeeta from '../assets/images/about/dr-sangeeta-profile.jpg'; 
 
-// Gallery Images
-import whiteningCase1Before from '../assets/images/gallery/whitening-case1-before.jpg';
-import whiteningCase1After from '../assets/images/gallery/whitening-case1-after.jpg';
-import fillingsCase1Before from '../assets/images/gallery/fillings-case1-before.jpg';
-import fillingsCase1After from '../assets/images/gallery/fillings-case1-after.jpg';
-import implantCase1Before from '../assets/images/gallery/implant-case1-before.jpg';
-import implantCase1After from '../assets/images/gallery/implant-case1-after.jpg';
+// Gallery Images — genuine before/after cases (added Aug 2026, metadata
+// stripped, clinical appearance unaltered). Marketing use requires written
+// patient authorization on file for every identifiable image.
+import restorationBefore from '../assets/images/gallery/restoration-before.jpg';
+import restorationAfter from '../assets/images/gallery/restoration-after.jpg';
+import whiteningBefore from '../assets/images/gallery/whitening-before.jpg';
+import whiteningAfter from '../assets/images/gallery/whitening-after.jpg';
+import crownsBefore from '../assets/images/gallery/crowns-before.jpg';
+import crownsAfter from '../assets/images/gallery/crowns-after.jpg';
+import invisalignBefore from '../assets/images/gallery/invisalign-before.jpg';
+import invisalignAfter from '../assets/images/gallery/invisalign-after.jpg';
 
 export const HERO_IMAGES = {
   dental1, dental2, dental3, dental4, dental5, dental6
@@ -34,7 +38,8 @@ export const TEAM_IMAGES = {
 } as const;
 
 export const GALLERY_IMAGES = {
-  whiteningCase1: { before: whiteningCase1Before, after: whiteningCase1After },
-  fillingsCase1: { before: fillingsCase1Before, after: fillingsCase1After },
-  implantCase1: { before: implantCase1Before, after: implantCase1After }
+  restoration: { before: restorationBefore, after: restorationAfter },
+  whitening: { before: whiteningBefore, after: whiteningAfter },
+  crowns: { before: crownsBefore, after: crownsAfter },
+  invisalign: { before: invisalignBefore, after: invisalignAfter },
 } as const;
