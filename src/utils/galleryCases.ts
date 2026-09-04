@@ -17,6 +17,8 @@ export const galleryCases = [
     beforeAlt: "Before treatment showing a chipped upper front tooth.",
     afterAlt: "After treatment showing the restored upper front tooth.",
     objectPosition: "center 45%",
+    serviceHref: "/services",
+    serviceLabel: "Explore our restorative services",
   },
   {
     tag: "Teeth Whitening",
@@ -26,6 +28,8 @@ export const galleryCases = [
     after: GALLERY_IMAGES.whitening.after,
     beforeAlt: "Smile before professional teeth-whitening treatment.",
     afterAlt: "Brighter smile after professional teeth-whitening treatment.",
+    serviceHref: "/services/teeth-whitening",
+    serviceLabel: "Learn about professional teeth whitening",
   },
   {
     tag: "Dental Crowns",
@@ -35,6 +39,8 @@ export const galleryCases = [
     after: GALLERY_IMAGES.crowns.after,
     beforeAlt: "Prepared upper front teeth before placement of dental crowns.",
     afterAlt: "Upper front teeth after delivery of custom dental crowns.",
+    serviceHref: "/services",
+    serviceLabel: "Explore our restorative services",
   },
   {
     tag: "Invisalign\u00ae",
@@ -44,5 +50,7 @@ export const galleryCases = [
     after: GALLERY_IMAGES.invisalign.after,
     beforeAlt: "Smile before clear-aligner treatment showing uneven tooth alignment.",
     afterAlt: "Straighter smile after clear-aligner treatment.",
+    serviceHref: "/services/invisalign",
+    serviceLabel: "Learn about Invisalign\u00ae treatment",
   },
 ];
