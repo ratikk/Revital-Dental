@@ -32,10 +32,10 @@ const rawPhone = clinicInfo.phone.replace(/\D/g, '');
           </a>
 
           <div class="flex items-center gap-2">
-            <div class="secure-call-wrapper" data-phone={rawPhone}>
-              <!-- SEO FIX: Point to /contact so bots see a valid link. JS will intercept for humans. -->
-              <Button href="/contact" text="Call Us" variant="outline" size="lg" />
-            </div>
+            {/* Direct dial. The number is public everywhere on the site, so the
+                old /contact-href + JS-intercept scheme only hid phone_click
+                events from analytics and broke the button without JS. */}
+            <Button href={`tel:+1${rawPhone.slice(-10)}`} text="Call Us" variant="outline" size="lg" />
             <Button href={clinicInfo.booking.url} text="Book Now" variant="primary" size="lg" target="_blank" rel="noopener noreferrer" />
           </div>
         </div>
@@ -104,17 +104,5 @@ const rawPhone = clinicInfo.phone.replace(/\D/g, '');
       mobileMenu.classList.toggle('hidden');
     });
   }
-  
-  // Logic: Intercept the click on /contact and force a call instead
-  const callWrappers = document.querySelectorAll('.secure-call-wrapper');
-  callWrappers.forEach(wrapper => {
-    const btn = wrapper.querySelector('a'); 
-    if (btn && wrapper instanceof HTMLElement) {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault(); // STOP browser from going to /contact
-        const phone = wrapper.dataset.phone;
-        if (phone) window.location.href = `tel:${phone}`; // Dial number instead
-      });
-    }
-  });
+
 </script>
