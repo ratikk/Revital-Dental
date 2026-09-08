@@ -468,3 +468,5 @@ For support and questions:
 ---
 
 **Built with ❤️ for dental practices everywhere**
+
+CI/CD PR-flow test — pushed via Claude Code, Sep 2026
