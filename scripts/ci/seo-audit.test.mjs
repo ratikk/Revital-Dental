@@ -175,7 +175,9 @@ console.log('images and descriptions');
   const buda = 'Looking for a top-rated dentist near Buda, TX? NextGen Dental is located just minutes north on I-35 in South Austin. comprehensive family & cosmetic dentistry.';
   check('lowercase sentence start -> warning', audit({ desc: buda }).warnings.some((w) => w.includes('lowercase sentence start')));
   check('well-formed description clean', audit().warnings.length === 0);
-  check('short description -> warning', audit({ desc: 'Too short.' }).warnings.some((w) => w.includes('min')));
+  // Description length was promoted from warning to blocking error (Aug 2026).
+  check('short description -> error', audit({ desc: 'Too short.' }).errors.some((e) => e.includes('min')));
+  check('long description -> error', audit({ desc: 'x'.repeat(200) }).errors.some((e) => e.includes('max')));
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);
